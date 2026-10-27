@@ -7,9 +7,17 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    res.send('Welcome to the server!');
-});
+const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users');
+const projectRoutes = require('./routes/projects');
+const teamRoutes = require('./routes/teams');
+const taskRoutes = require('./routes/tasks');
+
+app.use('/api/v1/auth', authRoutes);
+app.use('api/v1/users', userRoutes);
+app.use('api/v1/teams', teamRoutes);
+app.use('/api/v1/projects', projectRoutes);
+app.use('/api/v1/tasks', taskRoutes);
 
 const start = async () => {
     try {
