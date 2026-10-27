@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
 </head>
 <body>
+    <div data-include="nav-bar"></div>
 
+    <main class="app">
+        <header class="app-header">
+            <select class="select-project">
+                <option class="option-project" onclick="loadProject()">Progetto 1</option>
+            </select>
+        </header>
+
+        <nav class="project-nav">
+            <ul class="project-nav-list">
+                <li class="project-nav-link"><button class="project-nav-link-btn project-details" onclick="loadProjectSummary()">Dettagli</button></li>
+                <li class="project-nav-link"><button class="project-nav-link-btn project-list" onclick="loadProjectSummary()">Lista</button></li>
+                <li class="project-nav-link"><button class="project-nav-link-btn project-board" onclick="loadProjectSummary()">Board</button></li>
+            </ul>
+        </nav>
+    </main>
+
+    <script defer>
+        $(function () {
+            var includes = $('[data-include]');
+            $.each(includes, function () {
+                var file = 'pages/' + $(this).data('include') + '.html';
+                $(this).load(file);
+            });
+        });
+    </script>
 </body>
 </html>

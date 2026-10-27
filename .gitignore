@@ -1,2 +1,4 @@
 /node_modules/
 package-lock.json
+kanban-board-planning.txt
+.env
