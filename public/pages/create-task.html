@@ -2,21 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create-task</title>
+    <link rel="stylesheet" href="../styles/create-task.css">
 </head>
 <body>
-    <form class="add-task-form">
-        <input type="text" class="task-text" placeholder="Add a to do...">
-        <br>
-        <label for="task-priority-select" class="task-priority-label">Priority</label><br>
-        <select class="task-priority-select" id="task-priority-select">
-            <option class="task-priority-option" value="urgent">Urgent</option>
-            <option class="task-priority-option" value="important">Important</option>
-            <option class="task-priority-option" value="medium">Medium</option>
-            <option class="task-priority-option" value="low">Low</option>
-        </select>
-        <input type="date" class="task-date" placeholder="Date of task..."><br>
-        <button class="add-task-button" type="submit"></button>
-    </form>
+    <div class="modal-overlay" id="create-task-modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="create-task-title">
+            <div class="modal-header">
+                <h2 class="modal-title" id="create-task-title">Create task</h2>
+                <button type="button" class="modal-close-button" aria-label="Close">&times;</button>
+            </div>
+
+            <form class="add-task-form">
+                <input type="hidden" class="task-reporter" name="reporter">
+                <input type="hidden" class="task-project" name="project">
+
+                <label for="task-text" class="task-text-label">Summary *</label><br>
+                <input type="text" class="task-text" id="task-text" name="summary"
+                       placeholder="Add a to do..." maxlength="100" required>
+                <br>
+
+                <label for="task-description" class="task-description-label">Description</label><br>
+                <textarea class="task-description" id="task-description" name="description"
+                          placeholder="Describe the task..." maxlength="500" rows="5"></textarea>
+                <br>
+
+                <label for="task-status-select" class="task-status-label">Status</label><br>
+                <select class="task-status-select" id="task-status-select" name="status">
+                    <option class="task-status-option" value="inbox" selected>Inbox</option>
+                    <option class="task-status-option" value="todo">To do</option>
+                    <option class="task-status-option" value="in_progress">In progress</option>
+                    <option class="task-status-option" value="in_review">In review</option>
+                    <option class="task-status-option" value="done">Done</option>
+                </select>
+                <br>
+
+                <label for="task-work-type-select" class="task-work-type-label">Work type</label><br>
+                <select class="task-work-type-select" id="task-work-type-select" name="work_type">
+                    <option class="task-work-type-option" value="frontend">Frontend</option>
+                    <option class="task-work-type-option" value="backend">Backend</option>
+                    <option class="task-work-type-option" value="deploy">Deploy</option>
+                    <option class="task-work-type-option" value="design">Design</option>
+                    <option class="task-work-type-option" value="other" selected>Other</option>
+                </select>
+                <br>
+
+                <label for="task-priority-select" class="task-priority-label">Priority</label><br>
+                <select class="task-priority-select" id="task-priority-select" name="priority">
+                    <option class="task-priority-option" value="urgent">Urgent</option>
+                    <option class="task-priority-option" value="important">Important</option>
+                    <option class="task-priority-option" value="medium" selected>Medium</option>
+                    <option class="task-priority-option" value="low">Low</option>
+                    <option class="task-priority-option" value="lowest">Lowest</option>
+                </select>
+                <br>
+
+                <label for="task-assignee-select" class="task-assignee-label">Assignee</label><br>
+                <select class="task-assignee-select" id="task-assignee-select" name="assignee">
+                    <option class="task-assignee-option" value="" selected>Unassigned</option>
+                </select>
+                <br>
+
+                <label for="task-date" class="task-date-label">Due date</label><br>
+                <input type="date" class="task-date" id="task-date" name="due_date" placeholder="Date of task..."><br>
+
+                <button class="cancel-task-button" type="button">Cancel</button>
+                <button class="add-task-button" type="submit">Create</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

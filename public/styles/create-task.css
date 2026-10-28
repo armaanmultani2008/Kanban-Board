@@ -1,0 +1,184 @@
+:root {
+    --tm-bg: #ffffff;
+    --tm-text: #172b4d;
+    --tm-muted: #6b778c;
+    --tm-border: #dfe1e6;
+    --tm-field-bg: #fafbfc;
+    --tm-primary: #0c66e4;
+    --tm-primary-hover: #0055cc;
+    --tm-radius: 8px;
+    --tm-focus: 0 0 0 3px rgba(12, 102, 228, 0.25);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    color: var(--tm-text);
+}
+
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background: rgba(9, 30, 66, 0.54);
+    z-index: 1000;
+}
+
+.modal-overlay[hidden] {
+    display: none;
+}
+
+.modal {
+    width: 100%;
+    max-width: 520px;
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--tm-bg);
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(9, 30, 66, 0.35);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.modal-close-button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--tm-muted);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.modal-close-button:hover {
+    background: var(--tm-border);
+    color: var(--tm-text);
+}
+
+.add-task-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 12px;
+    justify-content: flex-end;
+}
+
+.modal br {
+    display: none;
+}
+
+.add-task-form > label {
+    flex: 0 0 100%;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--tm-muted);
+}
+
+.add-task-form > :is(input, select, textarea) {
+    flex: 0 0 100%;
+}
+
+
+.add-task-form :is(input[type="text"], input[type="date"], select, textarea) {
+    width: 100%;
+    padding: 8px 10px;
+    border: 2px solid var(--tm-border);
+    border-radius: var(--tm-radius);
+    background: var(--tm-field-bg);
+    color: var(--tm-text);
+    font: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+.add-task-form :is(input, select, textarea):hover {
+    background: #f1f2f4;
+}
+
+.add-task-form :is(input, select, textarea):focus {
+    outline: none;
+    border-color: var(--tm-primary);
+    background: var(--tm-bg);
+    box-shadow: var(--tm-focus);
+}
+
+.task-text {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.task-description {
+    min-height: 90px;
+    resize: vertical;
+}
+
+
+.add-task-form button {
+    margin-top: 20px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--tm-radius);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, box-shadow 0.15s;
+}
+
+.add-task-form button:focus-visible {
+    outline: none;
+    box-shadow: var(--tm-focus);
+}
+
+.add-task-button {
+    background: var(--tm-primary);
+    color: #fff;
+}
+
+.add-task-button:hover {
+    background: var(--tm-primary-hover);
+}
+
+.cancel-task-button {
+    background: transparent;
+    color: var(--tm-text);
+}
+
+.cancel-task-button:hover {
+    background: var(--tm-border);
+}
+
+
+@media (max-width: 480px) {
+    .modal-overlay {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .modal {
+        max-height: 92vh;
+        padding: 18px;
+        border-radius: 12px 12px 0 0;
+    }
+}

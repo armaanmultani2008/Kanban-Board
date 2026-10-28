@@ -2,9 +2,105 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit-task</title>
+    <link rel="stylesheet" href="../styles/edit-task.css">
 </head>
 <body>
+    <div class="modal-overlay" id="edit-task-modal">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-task-title">
+            <div class="modal-header">
+                <h2 class="modal-title" id="edit-task-title">Edit task</h2>
+                <button type="button" class="modal-close-button" aria-label="Close">&times;</button>
+            </div>
 
+            <form class="edit-task-form">
+                <input type="hidden" class="task-id" name="_id">
+                <input type="hidden" class="task-project" name="project">
+
+                <label for="task-text" class="task-text-label">Summary *</label><br>
+                <input type="text" class="task-text" id="task-text" name="summary"
+                       placeholder="Add a to do..." maxlength="100" required>
+                <br>
+
+                <label for="task-description" class="task-description-label">Description</label><br>
+                <textarea class="task-description" id="task-description" name="description"
+                          placeholder="Describe the task..." maxlength="500" rows="5"></textarea>
+                <br>
+
+                <label for="task-status-select" class="task-status-label">Status</label><br>
+                <select class="task-status-select" id="task-status-select" name="status">
+                    <option class="task-status-option" value="inbox">Inbox</option>
+                    <option class="task-status-option" value="todo">To do</option>
+                    <option class="task-status-option" value="in_progress">In progress</option>
+                    <option class="task-status-option" value="in_review">In review</option>
+                    <option class="task-status-option" value="done">Done</option>
+                </select>
+                <br>
+
+                <label for="task-work-type-select" class="task-work-type-label">Work type</label><br>
+                <select class="task-work-type-select" id="task-work-type-select" name="work_type">
+                    <option class="task-work-type-option" value="frontend">Frontend</option>
+                    <option class="task-work-type-option" value="backend">Backend</option>
+                    <option class="task-work-type-option" value="deploy">Deploy</option>
+                    <option class="task-work-type-option" value="design">Design</option>
+                    <option class="task-work-type-option" value="other">Other</option>
+                </select>
+                <br>
+
+                <label for="task-priority-select" class="task-priority-label">Priority</label><br>
+                <select class="task-priority-select" id="task-priority-select" name="priority">
+                    <option class="task-priority-option" value="urgent">Urgent</option>
+                    <option class="task-priority-option" value="important">Important</option>
+                    <option class="task-priority-option" value="medium">Medium</option>
+                    <option class="task-priority-option" value="low">Low</option>
+                    <option class="task-priority-option" value="lowest">Lowest</option>
+                </select>
+                <br>
+
+                <label for="task-assignee-select" class="task-assignee-label">Assignee</label><br>
+                <select class="task-assignee-select" id="task-assignee-select" name="assignee">
+                    <option class="task-assignee-option" value="">Unassigned</option>
+                </select>
+                <br>
+
+                <label for="task-reporter" class="task-reporter-label">Reporter</label><br>
+                <input type="text" class="task-reporter" id="task-reporter" name="reporter" readonly>
+                <br>
+
+                <label for="task-date" class="task-date-label">Due date</label><br>
+                <input type="date" class="task-date" id="task-date" name="due_date" placeholder="Date of task..."><br>
+
+                <p class="task-timestamps">
+                    Created: <span class="task-created-at"></span> &middot;
+                    Updated: <span class="task-updated-at"></span>
+                </p>
+
+                <button class="delete-task-button" type="button">Delete</button>
+                <button class="cancel-task-button" type="button">Cancel</button>
+                <button class="edit-task-button" type="submit">Save</button>
+            </form>
+
+            <section class="task-comments">
+                <h3 class="task-comments-title">Comments</h3>
+                <ul class="task-comments-list">
+                </ul>
+                <form class="add-comment-form">
+                    <textarea class="comment-text" name="text" placeholder="Add a comment..." rows="2" required></textarea>
+                    <button class="add-comment-button" type="submit">Comment</button>
+                </form>
+            </section>
+
+            <section class="task-worklogs">
+                <h3 class="task-worklogs-title">Worklog</h3>
+                <ul class="task-worklogs-list">
+                </ul>
+                <form class="add-worklog-form">
+                    <textarea class="worklog-text" name="text" placeholder="Log your work..." rows="2" required></textarea>
+                    <button class="add-worklog-button" type="submit">Add worklog</button>
+                </form>
+            </section>
+        </div>
+    </div>
 </body>
 </html>
