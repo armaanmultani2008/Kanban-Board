@@ -2,3 +2,4 @@
 package-lock.json
 kanban-board-planning.txt
 .env
+.vscode/launch.json
