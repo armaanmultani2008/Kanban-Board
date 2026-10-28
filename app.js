@@ -14,8 +14,8 @@ const teamRoutes = require('./routes/teams');
 const taskRoutes = require('./routes/tasks');
 
 app.use('/api/v1/auth', authRoutes);
-app.use('api/v1/users', userRoutes);
-app.use('api/v1/teams', teamRoutes);
+app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/teams', teamRoutes);
 app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/tasks', taskRoutes);
 
