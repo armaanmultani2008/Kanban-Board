@@ -12,10 +12,9 @@ const {
 } = require('../controllers/teams');
 
 router.route('/').post(createTeam);
+router.route('/join').patch(joinTeam);
 router.route('/:id').get(getTeam).patch(updateTeam).delete(deleteTeam);
 router.route('/:teamId/members/:userId').delete(deleteMember);
 router.route('/:id/members').get(getMembers);
-
-router.route('/join').patch(joinTeam);
 
 module.exports = router;
