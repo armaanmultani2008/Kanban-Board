@@ -46,25 +46,37 @@ const TaskSchema = new mongoose.Schema({
     comments: [{
         author: {
             type: mongoose.Schema.Types.ObjectId,
-            ref:'User'
+            ref:'User',
+            required: true
         },
         text: {
             type: String,
-            required: true
+            required: true,
+            maxlength: [1000, 'comment can not be longer than 100 characters.']
+        },
+        isIssue: {
+            type: Boolean,
+            default: false
         },
         resolved: {
             type: Boolean,
             default: false
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now
         }
     }],
     worklogs: [{
         author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
+            required: true
         },
         text: {
             type: String,
-            required: true
+            required: true,
+            maxlength: [1000, 'worklog can not be longer than 1000 characters.']
         },
         createdAt: {
             type: Date,
