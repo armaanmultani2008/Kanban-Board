@@ -1,6 +1,12 @@
 const Project = require('../models/project');
 const Task = require('../models/task');
-const { HttpError } = require('../middleware/error-handler');
+
+class HttpError extends Error {
+    constructor(status, message) {
+        super(message);
+        this.status = status;
+    }
+}
 
 const isSameId = (id1, id2) => {
     return id1 != null && id2 != null && String(id1) === String(id2);
@@ -27,6 +33,7 @@ const trovaTaskAccessibile = async (taskID, user) => {
 }
 
 module.exports = {
+    HttpError,
     isSameId,
     scegliChiavi,
     trovaProjectAccessibile,

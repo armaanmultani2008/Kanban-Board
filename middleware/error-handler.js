@@ -1,9 +1,4 @@
-class HttpError extends Error {
-    constructor(status, message) {
-        super(message);
-        this.status = status;
-    }
-}
+const {HttpError} = require('../utils/helpers');
 
 const errorHandler = (err, req, res, next) => {
     if (err instanceof HttpError)
