@@ -29,7 +29,7 @@ const getProjectTasks = async(req, res) => {
     const allowedSort = ['due_date', '-due_date', 'createdAt', '-createdAt'];
     const sortBy = allowedSort.includes(sort) ? sort : '-createdAt';
 
-    const tasks = await Task.find(filter).sort(sort) ? sort : '-createdAt';
+    const tasks = await Task.find(filter).sort(sortBy).populate('assignee', 'name username');
     res.status(200).json({count: tasks.length, tasks});
 }
 
