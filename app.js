@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const connectDB = require('./db/connect');
 require('dotenv').config();
+const errorHandler = require('./middleware/error-handler');
+const authMiddleware = require('./middleware/auth');
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -14,10 +16,12 @@ const teamRoutes = require('./routes/teams');
 const taskRoutes = require('./routes/tasks');
 
 app.use('/api/v1/auth', authRoutes);
-app.use('api/v1/users', userRoutes);
-app.use('api/v1/teams', teamRoutes);
-app.use('/api/v1/projects', projectRoutes);
-app.use('/api/v1/tasks', taskRoutes);
+app.use('/api/v1/users', authMiddleware, userRoutes);
+app.use('/api/v1/teams', authMiddleware, teamRoutes);
+app.use('/api/v1/projects', authMiddleware, projectRoutes);
+app.use('/api/v1/tasks', authMiddleware, taskRoutes);
+
+app.use(errorHandler);
 
 const start = async () => {
     try {

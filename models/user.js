@@ -15,8 +15,14 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'must provide email'],
+        lowercase: true,
         trim: true,
         unique: true
+    },
+    password: {
+        type: String,
+        required: [true, 'must provide password'],
+        select: false,
     },
     job_title: {
         type: String,

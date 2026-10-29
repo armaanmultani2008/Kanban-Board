@@ -8,7 +8,6 @@ const TeamSchema = new mongoose.Schema({
     members: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
-        required: [true, 'must provide at least one member']
     }],
     description: {
         type: String,
