@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const connectDB = require('./db/connect');
 require('dotenv').config();
+const errorHandler = require('./middleware/error-handler');
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -18,6 +19,8 @@ app.use('api/v1/users', userRoutes);
 app.use('api/v1/teams', teamRoutes);
 app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/tasks', taskRoutes);
+
+app.use(errorHandler);
 
 const start = async () => {
     try {
