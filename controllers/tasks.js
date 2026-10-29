@@ -46,7 +46,9 @@ const getTask = async (req, res) => {
     const {task} = await trovaTaskAccessibile(req.params.id, req.user);
     await task.populate([
         {path: 'assignee', select: 'name username'},
-        {path: 'reporter', select: 'name username'}
+        {path: 'reporter', select: 'name username'},
+        {path: 'comments.author', select: 'name username'},
+        {path: 'worklogs.author', select: 'name username'}
     ]);
     res.status(200).json({task});
 }
@@ -69,10 +71,79 @@ const deleteTask = async (req, res) => {
     res.status(200).json({msg: 'task deleted'});
 }
 
+const addComment = async (req, res) => {
+    const {task} = await trovaTaskAccessibile(req.params.id, req.user);
+    task.comments.push({
+        author: req.user._id,
+        text: req.body.text,
+        isIssue: req.body.isIssue === true
+    });
+    await task.save();
+    res.status(201).json({comment: task.comments[task.comments.length - 1]});
+};
+
+const updateComment = async (req, res) => {
+    const {task} = await trovaTaskAccessibile(req.params.id, req.user);
+    const comment = task.comments.id(req.params.commentId);
+    if (!comment) throw new HttpError(404, 'Comment not found');
+
+    if (req.body.text !== undefined) {
+        if (!isSameId(comment.author, req.user._id)) {
+            throw new HttpError(403, 'Only the author can edit the comment');
+        }
+        comment.text = req.body.text;
+    }
+    if (req.body.resolved !== undefined) {
+        if (!comment.isIssue) throw new HttpError(400, 'Only issues can be resolved');
+        comment.resolved = req.body.resolved;
+    }
+
+    await task.save();
+    res.status(200).json({comment});
+};
+
+const deleteComment = async (req, res) => {
+    const {task, project} = await trovaTaskAccessibile(req.params.id, req.user);
+    const comment = task.comments.id(req.params.commentId);
+    if (!comment) throw new HttpError(404, 'Comment not found');
+
+    const canDelete = isSameId(comment.author, req.user._id) || isSameId(project.owner, req.user._id);
+    if (!canDelete) throw new HttpError(403, 'Only the author or the project owner can delete the comment');
+
+    task.comments.pull(comment._id);
+    await task.save();
+    res.status(200).json({msg: 'Comment deleted'});
+};
+
+const addWorklog = async (req, res) => {
+    const {task} = await trovaTaskAccessibile(req.params.id, req.user);
+    task.worklogs.push({author: req.user._id, text: req.body.text});
+    await task.save();
+    res.status(201).json({worklog: task.worklogs[task.worklogs.length - 1]});
+};
+
+const deleteWorklog = async (req, res) => {
+    const {task} = await trovaTaskAccessibile(req.params.id, req.user);
+    const worklog = task.worklogs.id(req.params.worklogId);
+    if (!worklog) throw new HttpError(404, 'Worklog not found');
+    if (!isSameId(worklog.author, req.user._id)) {
+        throw new HttpError(403, 'Only the author can delete the worklog');
+    }
+
+    task.worklogs.pull(worklog._id);
+    await task.save();
+    res.status(200).json({msg: 'Worklog deleted'});
+};
+
 module.exports = {
     getProjectTasks,
     createTask,
     getTask,
     updateTask,
-    deleteTask 
+    deleteTask,
+    addComment,
+    updateComment,
+    deleteComment,
+    addWorklog,
+    deleteWorklog
 };
