@@ -2,8 +2,7 @@ const crypto = require('crypto');
 const Team = require('../models/team');
 const User = require('../models/user');
 const Project = require('../models/project');
-const {isSameId, scegliChiavi} = require('../utils/helpers');
-const {HttpError} = require('../middleware/error-handler');
+const {HttpError, isSameId, scegliChiavi} = require('../utils/helpers');
 
 const findTeamAsAdmin = async (teamID, user) => {
     const team = await Team.findById(teamID);

@@ -1,7 +1,6 @@
 const Task = require('../models/task');
 const User = require('../models/user');
-const {isSameId, scegliChiavi, trovaProjectAccessibile, trovaTaskAccessibile} = require('../utils/helpers');
-const {HttpError} = require('../middleware/error-handler');
+const {HttpError, isSameId, scegliChiavi, trovaProjectAccessibile, trovaTaskAccessibile} = require('../utils/helpers');
 
 const TASK_FIELDS = ['summary', 'description', 'status', 'work_type', 'priority', 'due_date', 'assignee'];
 
