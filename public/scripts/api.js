@@ -19,10 +19,9 @@ api.interceptors.request.use(config => {
 api.interceptors.response.use(
     res => res,
     err => {
-        if (err.response && err.response.status === 401) {
-            localStorage.removeItem('token');
-            window.location.href = '/pages/login.html';
-        }
+        const isAuthRequest = err.config && err.config.url && err.config.url.startsWith('/auth');
+        if (err.response && err.response.status === 401 && !isAuthRequest)
+            logout();
         return Promise.reject(err);
     }
 );
