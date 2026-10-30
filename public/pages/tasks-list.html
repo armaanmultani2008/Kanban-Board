@@ -2,9 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task-list</title>
+    <link rel="stylesheet" href="../styles/task-list.css">
 </head>
 <body>
+    <div class="task-list-container">
+        <div class="task-list-header">
+            <h1 class="task-list-title">Tasks</h1>
+            <button type="button" class="new-task-button">Create task</button>
+        </div>
 
+        <form class="task-filters">
+            <input type="search" class="task-search" name="search" placeholder="Search tasks...">
+
+            <label for="filter-status-select" class="filter-label">Status</label>
+            <select class="filter-status-select" id="filter-status-select" name="status">
+                <option value="">All</option>
+                <option value="inbox">Inbox</option>
+                <option value="todo">To do</option>
+                <option value="in_progress">In progress</option>
+                <option value="in_review">In review</option>
+                <option value="done">Done</option>
+            </select>
+
+            <label for="filter-work-type-select" class="filter-label">Work type</label>
+            <select class="filter-work-type-select" id="filter-work-type-select" name="work_type">
+                <option value="">All</option>
+                <option value="frontend">Frontend</option>
+                <option value="backend">Backend</option>
+                <option value="deploy">Deploy</option>
+                <option value="design">Design</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="filter-priority-select" class="filter-label">Priority</label>
+            <select class="filter-priority-select" id="filter-priority-select" name="priority">
+                <option value="">All</option>
+                <option value="urgent">Urgent</option>
+                <option value="important">Important</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+                <option value="lowest">Lowest</option>
+            </select>
+
+            <label for="filter-assignee-select" class="filter-label">Assignee</label>
+            <select class="filter-assignee-select" id="filter-assignee-select" name="assignee">
+                <option value="">Anyone</option>
+                <option value="me">Assigned to me</option>
+                <option value="none">Unassigned</option>
+            </select>
+
+            <button type="reset" class="clear-filters-button">Clear filters</button>
+        </form>
+
+        <table class="task-table">
+            <thead>
+                <tr>
+                    <th class="task-col-summary" data-sort="summary">Summary</th>
+                    <th class="task-col-status" data-sort="status">Status</th>
+                    <th class="task-col-work-type" data-sort="work_type">Work type</th>
+                    <th class="task-col-priority" data-sort="priority">Priority</th>
+                    <th class="task-col-assignee" data-sort="assignee">Assignee</th>
+                    <th class="task-col-date" data-sort="due_date">Due date</th>
+                    <th class="task-col-actions"></th>
+                </tr>
+            </thead>
+            <tbody class="task-table-body">
+            </tbody>
+        </table>
+
+        <p class="task-list-empty" hidden>No tasks match your filters.</p>
+    </div>
 </body>
 </html>

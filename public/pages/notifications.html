@@ -2,9 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="../styles/notifications.css">
 </head>
 <body>
+    <div class="notifications-container">
+        <div class="notifications-header">
+            <h1 class="notifications-title">Notifications</h1>
+            <button type="button" class="mark-all-read-button">Mark all as read</button>
+        </div>
 
+        <div class="notifications-filters">
+            <button type="button" class="notifications-filter-button active" data-filter="all">All</button>
+            <button type="button" class="notifications-filter-button" data-filter="unread">Unread</button>
+            <button type="button" class="notifications-filter-button" data-filter="mentions">Mentions</button>
+            <button type="button" class="notifications-filter-button" data-filter="assigned">Assigned to me</button>
+        </div>
+
+        <ul class="notifications-list">
+        </ul>
+
+        <p class="notifications-empty" hidden>You're all caught up!</p>
+    </div>
 </body>
 </html>

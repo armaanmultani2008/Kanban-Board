@@ -2,9 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+    <link rel="stylesheet" href="../styles/task.css">
 </head>
 <body>
+    <div class="task-page">
+        <nav class="task-breadcrumb" aria-label="Breadcrumb">
+            <a class="task-breadcrumb-project" href=""></a>
+            <span class="task-breadcrumb-separator">/</span>
+            <span class="task-breadcrumb-id"></span>
+        </nav>
 
+        <div class="task-page-layout">
+            <main class="task-main">
+                <h1 class="task-summary"></h1>
+
+                <div class="task-actions">
+                    <button type="button" class="task-edit-button">Edit</button>
+                    <button type="button" class="task-delete-button">Delete</button>
+                </div>
+
+                <section class="task-description-section">
+                    <h2 class="task-section-title">Description</h2>
+                    <p class="task-description-text"></p>
+                </section>
+
+                <section class="task-comments">
+                    <h2 class="task-section-title">Comments</h2>
+                    <ul class="task-comments-list">
+                    </ul>
+                    <form class="add-comment-form">
+                        <textarea class="comment-text" name="text" placeholder="Add a comment..." rows="3" required></textarea>
+                        <button class="add-comment-button" type="submit">Comment</button>
+                    </form>
+                </section>
+
+                <section class="task-worklogs">
+                    <h2 class="task-section-title">Worklog</h2>
+                    <ul class="task-worklogs-list">
+                    </ul>
+                    <form class="add-worklog-form">
+                        <textarea class="worklog-text" name="text" placeholder="Log your work..." rows="2" required></textarea>
+                        <button class="add-worklog-button" type="submit">Add worklog</button>
+                    </form>
+                </section>
+            </main>
+
+            <aside class="task-details">
+                <h2 class="task-section-title">Details</h2>
+                <dl class="task-details-list">
+                    <dt class="task-detail-label">Status</dt>
+                    <dd class="task-detail-value task-status"></dd>
+
+                    <dt class="task-detail-label">Work type</dt>
+                    <dd class="task-detail-value task-work-type"></dd>
+
+                    <dt class="task-detail-label">Priority</dt>
+                    <dd class="task-detail-value task-priority"></dd>
+
+                    <dt class="task-detail-label">Assignee</dt>
+                    <dd class="task-detail-value task-assignee"></dd>
+
+                    <dt class="task-detail-label">Reporter</dt>
+                    <dd class="task-detail-value task-reporter"></dd>
+
+                    <dt class="task-detail-label">Due date</dt>
+                    <dd class="task-detail-value task-date"></dd>
+
+                    <dt class="task-detail-label">Created</dt>
+                    <dd class="task-detail-value task-created-at"></dd>
+
+                    <dt class="task-detail-label">Updated</dt>
+                    <dd class="task-detail-value task-updated-at"></dd>
+                </dl>
+            </aside>
+        </div>
+    </div>
 </body>
 </html>

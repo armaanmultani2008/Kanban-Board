@@ -2,9 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link rel="stylesheet" href="../styles/projects.css">
 </head>
 <body>
+    <div class="projects-container">
+        <div class="projects-header">
+            <h1 class="projects-title">Projects</h1>
+            <button type="button" class="new-project-button">New project</button>
+        </div>
 
+        <div class="projects-toolbar">
+            <input type="search" class="project-search" placeholder="Search projects...">
+            <select class="project-sort-select" aria-label="Sort projects">
+                <option value="recent">Recently updated</option>
+                <option value="name">Name</option>
+                <option value="created">Creation date</option>
+            </select>
+        </div>
+
+        <ul class="project-list">
+        </ul>
+
+        <p class="projects-empty" hidden>No projects yet. Create your first one!</p>
+    </div>
+
+    <div class="modal-overlay" id="create-project-modal" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="create-project-title">
+            <div class="modal-header">
+                <h2 class="modal-title" id="create-project-title">Create project</h2>
+                <button type="button" class="modal-close-button" aria-label="Close">&times;</button>
+            </div>
+
+            <form class="add-project-form">
+                <label for="project-name" class="project-name-label">Name *</label><br>
+                <input type="text" class="project-name" id="project-name" name="name" placeholder="Project name..." maxlength="100" required>
+                <br>
+
+                <label for="project-description" class="project-description-label">Description</label><br>
+                <textarea class="project-description" id="project-description" name="description" placeholder="What is this project about?" maxlength="500" rows="4"></textarea>
+                <br>
+
+                <label for="project-members-select" class="project-members-label">Members</label><br>
+                <select class="project-members-select" id="project-members-select" name="members" multiple>
+                </select>
+                <br>
+
+                <button class="cancel-project-button" type="button">Cancel</button>
+                <button class="add-project-button" type="submit">Create</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

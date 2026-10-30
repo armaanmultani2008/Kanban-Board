@@ -2,9 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
 </head>
 <body>
+    <div class="summary-container">
+        <div class="summary-header">
+            <h1 class="summary-title">Summary</h1>
+            <span class="summary-project-name"></span>
+        </div>
 
+        <section class="summary-stats">
+            <div class="summary-stat-card">
+                <span class="summary-stat-value summary-total">0</span>
+                <span class="summary-stat-label">Total tasks</span>
+            </div>
+            <div class="summary-stat-card">
+                <span class="summary-stat-value summary-done">0</span>
+                <span class="summary-stat-label">Completed</span>
+            </div>
+            <div class="summary-stat-card">
+                <span class="summary-stat-value summary-in-progress">0</span>
+                <span class="summary-stat-label">In progress</span>
+            </div>
+            <div class="summary-stat-card">
+                <span class="summary-stat-value summary-overdue">0</span>
+                <span class="summary-stat-label">Overdue</span>
+            </div>
+        </section>
+
+        <div class="summary-grid">
+            <section class="summary-panel summary-by-status">
+                <h2 class="summary-panel-title">Status overview</h2>
+                <ul class="summary-bar-list">
+                </ul>
+            </section>
+
+            <section class="summary-panel summary-by-priority">
+                <h2 class="summary-panel-title">Priority breakdown</h2>
+                <ul class="summary-bar-list"></ul>
+            </section>
+
+            <section class="summary-panel summary-by-work-type">
+                <h2 class="summary-panel-title">Work type</h2>
+                <ul class="summary-bar-list"></ul>
+            </section>
+
+            <section class="summary-panel summary-by-assignee">
+                <h2 class="summary-panel-title">Team workload</h2>
+                <ul class="summary-bar-list"></ul>
+            </section>
+        </div>
+
+        <section class="summary-panel summary-activity">
+            <h2 class="summary-panel-title">Recent activity</h2>
+            <ul class="summary-activity-list">
+            </ul>
+        </section>
+    </div>
 </body>
 </html>

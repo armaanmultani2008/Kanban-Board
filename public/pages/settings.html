@@ -2,9 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings</title>
+    <link rel="stylesheet" href="../styles/settings.css">
 </head>
 <body>
+    <div class="settings-container">
+        <h1 class="settings-title">Settings</h1>
 
+        <form class="settings-form">
+            <section class="settings-section settings-appearance">
+                <h2 class="settings-section-title">Appearance &amp; language</h2>
+
+                <label for="settings-theme-select" class="settings-theme-label">Theme</label><br>
+                <select class="settings-theme-select" id="settings-theme-select" name="theme">
+                    <option value="system">System default</option>
+                    <option value="light">Light</option>
+                    <option value="dark">Dark</option>
+                </select>
+                <br>
+
+                <label for="settings-language-select" class="settings-language-label">Language</label><br>
+                <select class="settings-language-select" id="settings-language-select" name="language">
+                    <option value="en">English</option>
+                    <option value="it">Italiano</option>
+                </select>
+                <br>
+
+                <label for="settings-timezone-select" class="settings-timezone-label">Timezone</label><br>
+                <select class="settings-timezone-select" id="settings-timezone-select" name="timezone">
+                </select>
+            </section>
+
+            <section class="settings-section settings-board">
+                <h2 class="settings-section-title">Board</h2>
+
+                <label for="settings-default-view-select" class="settings-default-view-label">Default view</label><br>
+                <select class="settings-default-view-select" id="settings-default-view-select" name="defaultView">
+                    <option value="board">Board</option>
+                    <option value="list">List</option>
+                    <option value="planner">Planner</option>
+                </select>
+                <br>
+
+                <label class="settings-checkbox-label">
+                    <input type="checkbox" class="settings-show-done" name="showDone"> Show completed tasks on the board
+                </label>
+            </section>
+
+            <section class="settings-section settings-notifications">
+                <h2 class="settings-section-title">Notifications</h2>
+
+                <label class="settings-checkbox-label">
+                    <input type="checkbox" class="settings-notify-assigned" name="notifyAssigned" checked> When a task is assigned to me
+                </label>
+                <label class="settings-checkbox-label">
+                    <input type="checkbox" class="settings-notify-mentions" name="notifyMentions" checked> When someone mentions me
+                </label>
+                <label class="settings-checkbox-label">
+                    <input type="checkbox" class="settings-notify-comments" name="notifyComments"> New comments on my tasks
+                </label>
+                <label class="settings-checkbox-label">
+                    <input type="checkbox" class="settings-notify-due" name="notifyDue" checked> Due date reminders
+                </label>
+                <label class="settings-checkbox-label">
+                    <input type="checkbox" class="settings-notify-email" name="notifyEmail"> Also send me an email
+                </label>
+            </section>
+
+            <div class="settings-actions">
+                <button class="reset-settings-button" type="reset">Reset</button>
+                <button class="save-settings-button" type="submit">Save settings</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

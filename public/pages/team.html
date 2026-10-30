@@ -2,9 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team</title>
+    <link rel="stylesheet" href="../styles/team.css">
 </head>
 <body>
+    <div class="team-container">
+        <div class="team-header">
+            <h1 class="team-title">Team</h1>
+            <button type="button" class="invite-member-button">Invite member</button>
+        </div>
 
+        <div class="team-toolbar">
+            <input type="search" class="team-search" placeholder="Search members...">
+        </div>
+
+        <ul class="team-list">
+        </ul>
+
+        <p class="team-empty" hidden>No members found.</p>
+    </div>
+
+    <div class="modal-overlay" id="invite-member-modal" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="invite-member-title">
+            <div class="modal-header">
+                <h2 class="modal-title" id="invite-member-title">Invite member</h2>
+                <button type="button" class="modal-close-button" aria-label="Close">&times;</button>
+            </div>
+
+            <form class="invite-member-form">
+                <label for="invite-email" class="invite-email-label">Email *</label><br>
+                <input type="email" class="invite-email" id="invite-email" name="email" placeholder="name@example.com" required>
+                <br>
+
+                <label for="invite-role-select" class="invite-role-label">Role</label><br>
+                <select class="invite-role-select" id="invite-role-select" name="role">
+                    <option value="member" selected>Member</option>
+                    <option value="admin">Admin</option>
+                </select>
+                <br>
+
+                <button class="cancel-invite-button" type="button">Cancel</button>
+                <button class="send-invite-button" type="submit">Send invite</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

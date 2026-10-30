@@ -1,0 +1,279 @@
+:root {
+    --tm-bg: #ffffff;
+    --tm-surface: #f4f5f7;
+    --tm-text: #172b4d;
+    --tm-muted: #6b778c;
+    --tm-border: #dfe1e6;
+    --tm-field-bg: #fafbfc;
+    --tm-primary: #0c66e4;
+    --tm-primary-hover: #0055cc;
+    --tm-primary-soft: #e9f2ff;
+    --tm-danger: #c9372c;
+    --tm-radius: 8px;
+    --tm-focus: 0 0 0 3px rgba(12, 102, 228, 0.25);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    color: var(--tm-text);
+    background: var(--tm-surface);
+}
+
+.task-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 16px 64px;
+}
+
+.task-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    color: var(--tm-muted);
+}
+
+.task-breadcrumb-project {
+    color: var(--tm-primary);
+    text-decoration: none;
+}
+
+.task-breadcrumb-project:hover {
+    text-decoration: underline;
+}
+
+.task-page-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    align-items: start;
+}
+
+.task-main,
+.task-details {
+    padding: 24px;
+    background: var(--tm-bg);
+    border: 1px solid var(--tm-border);
+    border-radius: 12px;
+}
+
+.task-summary {
+    margin: 0 0 12px;
+    font-size: 26px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.task-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.task-edit-button,
+.task-delete-button,
+.add-comment-button,
+.add-worklog-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--tm-radius);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+
+.task-edit-button:focus-visible,
+.task-delete-button:focus-visible,
+.add-comment-button:focus-visible,
+.add-worklog-button:focus-visible {
+    outline: none;
+    box-shadow: var(--tm-focus);
+}
+
+.task-edit-button {
+    background: transparent;
+    color: var(--tm-text);
+}
+
+.task-edit-button:hover {
+    background: var(--tm-border);
+}
+
+.task-delete-button {
+    background: transparent;
+    color: var(--tm-danger);
+}
+
+.task-delete-button:hover {
+    background: var(--tm-danger);
+    color: #fff;
+}
+
+.add-comment-button,
+.add-worklog-button {
+    background: var(--tm-primary);
+    color: #fff;
+}
+
+.add-comment-button:hover,
+.add-worklog-button:hover {
+    background: var(--tm-primary-hover);
+}
+
+.task-section-title {
+    margin: 0 0 12px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.task-description-text {
+    margin: 0 0 24px;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.task-comments,
+.task-worklogs {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--tm-border);
+}
+
+.task-comments-list,
+.task-worklogs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 0 14px;
+    padding: 0;
+    list-style: none;
+}
+
+.task-comment,
+.task-worklog {
+    padding: 10px 12px;
+    border: 1px solid var(--tm-border);
+    border-radius: var(--tm-radius);
+    background: var(--tm-field-bg);
+}
+
+.task-comment-author,
+.task-worklog-author {
+    font-weight: 600;
+}
+
+.task-worklog-date {
+    margin-left: 8px;
+    font-size: 12px;
+    color: var(--tm-muted);
+}
+
+.task-comment-text,
+.task-worklog-text {
+    margin: 6px 0 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.task-comment-resolved-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--tm-muted);
+    cursor: pointer;
+}
+
+.add-comment-form,
+.add-worklog-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 6px 12px;
+}
+
+.comment-text,
+.worklog-text {
+    flex: 1 1 240px;
+    min-height: 60px;
+    padding: 8px 10px;
+    border: 2px solid var(--tm-border);
+    border-radius: var(--tm-radius);
+    background: var(--tm-field-bg);
+    color: var(--tm-text);
+    font: inherit;
+    resize: vertical;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+.comment-text:hover,
+.worklog-text:hover {
+    background: #f1f2f4;
+}
+
+.comment-text:focus,
+.worklog-text:focus {
+    outline: none;
+    border-color: var(--tm-primary);
+    background: var(--tm-bg);
+    box-shadow: var(--tm-focus);
+}
+
+.task-details {
+    position: sticky;
+    top: 16px;
+}
+
+.task-details-list {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 12px 8px;
+    margin: 0;
+}
+
+.task-detail-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--tm-muted);
+}
+
+.task-detail-value {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 860px) {
+    .task-page-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .task-details {
+        position: static;
+        order: -1;
+    }
+}
+
+@media (max-width: 480px) {
+    .task-page {
+        padding: 16px 12px 40px;
+    }
+
+    .task-main,
+    .task-details {
+        padding: 18px;
+    }
+
+    .task-summary {
+        font-size: 22px;
+    }
+}

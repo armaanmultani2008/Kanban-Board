@@ -2,9 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats</title>
+    <link rel="stylesheet" href="../styles/chats.css">
 </head>
 <body>
+    <div class="chats-container">
 
+        <aside class="chat-list-panel">
+            <div class="chat-list-header">
+                <h2 class="chat-list-title">Chats</h2>
+                <button type="button" class="new-chat-button">New chat</button>
+            </div>
+
+            <input type="search" class="chat-search" placeholder="Search chats...">
+
+            <ul class="chat-list">
+            </ul>
+        </aside>
+
+        <main class="chat-window">
+            <div class="chat-window-header">
+                <h2 class="chat-window-title">Select a chat</h2>
+                <span class="chat-window-members"></span>
+            </div>
+
+            <ul class="chat-messages">
+            </ul>
+
+            <form class="send-message-form">
+                <input type="text" class="message-text" name="text" placeholder="Write a message..." autocomplete="off" required>
+                <button class="send-message-button" type="submit">Send</button>
+            </form>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="new-chat-modal" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="new-chat-title">
+            <div class="modal-header">
+                <h2 class="modal-title" id="new-chat-title">New chat</h2>
+                <button type="button" class="modal-close-button" aria-label="Close">&times;</button>
+            </div>
+
+            <form class="add-chat-form">
+                <label for="chat-name" class="chat-name-label">Name</label><br>
+                <input type="text" class="chat-name" id="chat-name" name="name" placeholder="Chat name..." maxlength="100"><br>
+
+                <label for="chat-members-select" class="chat-members-label">Members</label><br>
+                <select class="chat-members-select" id="chat-members-select" name="members" multiple>
+                </select>
+                <br>
+
+                <button class="cancel-chat-button" type="button">Cancel</button>
+                <button class="add-chat-button" type="submit">Create</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

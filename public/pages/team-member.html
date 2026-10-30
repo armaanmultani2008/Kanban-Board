@@ -2,9 +2,68 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team-member</title>
+    <link rel="stylesheet" href="../styles/team-member.css">
 </head>
 <body>
+    <div class="team-member-container">
+        <a class="team-member-back-link" href="team.html">&lsaquo; Back to team</a>
 
+        <section class="team-member-profile">
+            <img class="team-member-avatar" src="" alt="Profile picture" width="96" height="96">
+            <div class="team-member-info">
+                <h1 class="team-member-name"></h1>
+                <span class="team-member-role"></span>
+                <a class="team-member-email" href=""></a>
+            </div>
+            <div class="team-member-actions">
+                <button type="button" class="team-member-message-button">Send message</button>
+                <button type="button" class="team-member-remove-button">Remove from project</button>
+            </div>
+        </section>
+
+        <section class="team-member-stats">
+            <div class="team-member-stat-card">
+                <span class="team-member-stat-value team-member-assigned">0</span>
+                <span class="team-member-stat-label">Assigned</span>
+            </div>
+            <div class="team-member-stat-card">
+                <span class="team-member-stat-value team-member-in-progress">0</span>
+                <span class="team-member-stat-label">In progress</span>
+            </div>
+            <div class="team-member-stat-card">
+                <span class="team-member-stat-value team-member-done">0</span>
+                <span class="team-member-stat-label">Completed</span>
+            </div>
+            <div class="team-member-stat-card">
+                <span class="team-member-stat-value team-member-overdue">0</span>
+                <span class="team-member-stat-label">Overdue</span>
+            </div>
+        </section>
+
+        <section class="team-member-tasks">
+            <h2 class="team-member-section-title">Assigned tasks</h2>
+
+            <label for="member-status-select" class="filter-label">Status</label>
+            <select class="member-status-select" id="member-status-select">
+                <option value="">All</option>
+                <option value="inbox">Inbox</option>
+                <option value="todo">To do</option>
+                <option value="in_progress">In progress</option>
+                <option value="in_review">In review</option>
+                <option value="done">Done</option>
+            </select>
+
+            <ul class="team-member-tasks-list">
+            </ul>
+        </section>
+
+        <section class="team-member-worklogs">
+            <h2 class="team-member-section-title">Recent worklogs</h2>
+            <ul class="team-member-worklogs-list">
+            </ul>
+        </section>
+    </div>
 </body>
 </html>

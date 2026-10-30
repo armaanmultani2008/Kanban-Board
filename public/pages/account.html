@@ -2,9 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account</title>
+    <link rel="stylesheet" href="../styles/account.css">
 </head>
 <body>
+    <div class="account-container">
+        <h1 class="account-title">My account</h1>
 
+        <section class="account-profile">
+            <h2 class="account-section-title">Profile</h2>
+
+            <form class="edit-account-form">
+                <img class="account-avatar" src="" alt="Profile picture" width="96" height="96"><br>
+                <label for="account-avatar-input" class="account-avatar-label">Profile picture</label><br>
+                <input type="file" class="account-avatar-input" id="account-avatar-input" name="avatar" accept="image/*">
+                <br>
+
+                <label for="account-name" class="account-name-label">Name</label><br>
+                <input type="text" class="account-name" id="account-name" name="name" placeholder="Your name..." required>
+                <br>
+
+                <label for="account-email" class="account-email-label">Email</label><br>
+                <input type="email" class="account-email" id="account-email" name="email" placeholder="you@example.com" required>
+                <br>
+
+                <button class="edit-account-button" type="submit">Save changes</button>
+            </form>
+        </section>
+
+        <section class="account-password">
+            <h2 class="account-section-title">Change password</h2>
+
+            <form class="change-password-form">
+                <label for="account-current-password" class="account-current-password-label">Current password</label><br>
+                <input type="password" class="account-current-password" id="account-current-password" name="currentPassword" autocomplete="current-password" required>
+                <br>
+
+                <label for="account-new-password" class="account-new-password-label">New password</label><br>
+                <input type="password" class="account-new-password" id="account-new-password" name="newPassword" autocomplete="new-password" minlength="8" required>
+                <br>
+
+                <label for="account-confirm-password" class="account-confirm-password-label">Confirm new password</label><br>
+                <input type="password" class="account-confirm-password" id="account-confirm-password" name="confirmPassword" autocomplete="new-password" minlength="8" required>
+                <br>
+
+                <button class="change-password-button" type="submit">Update password</button>
+            </form>
+        </section>
+
+        <section class="account-projects">
+            <h2 class="account-section-title">My projects</h2>
+            <ul class="account-projects-list">
+            </ul>
+        </section>
+
+        <section class="account-danger-zone">
+            <h2 class="account-section-title">Danger zone</h2>
+            <button class="logout-button" type="button">Log out</button>
+            <button class="delete-account-button" type="button">Delete account</button>
+        </section>
+    </div>
 </body>
 </html>

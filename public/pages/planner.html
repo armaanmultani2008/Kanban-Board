@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planner</title>
+    <link rel="stylesheet" href="../styles/planner.css">
 </head>
 <body>
+    <div class="planner-container">
+        <div class="planner-header">
+            <h1 class="planner-title">Planner</h1>
 
+            <div class="planner-nav">
+                <button type="button" class="planner-prev-button" aria-label="Previous">&lsaquo;</button>
+                <button type="button" class="planner-today-button">Today</button>
+                <button type="button" class="planner-next-button" aria-label="Next">&rsaquo;</button>
+                <span class="planner-current-period"></span>
+            </div>
+
+            <div class="planner-view-toggle">
+                <button type="button" class="planner-view-button" data-view="week">Week</button>
+                <button type="button" class="planner-view-button active" data-view="month">Month</button>
+            </div>
+
+            <label for="planner-assignee-select" class="planner-assignee-label">Assignee</label>
+            <select class="planner-assignee-select" id="planner-assignee-select">
+                <option value="">Everyone</option>
+            </select>
+        </div>
+
+        <div class="planner-body">
+            <div class="planner-calendar">
+                <div class="planner-weekdays">
+                    <span class="planner-weekday">Mon</span>
+                    <span class="planner-weekday">Tue</span>
+                    <span class="planner-weekday">Wed</span>
+                    <span class="planner-weekday">Thu</span>
+                    <span class="planner-weekday">Fri</span>
+                    <span class="planner-weekday">Sat</span>
+                    <span class="planner-weekday">Sun</span>
+                </div>
+                <div class="planner-grid">
+                </div>
+            </div>
+
+            <aside class="planner-unscheduled">
+                <h2 class="planner-unscheduled-title">No due date</h2>
+                <ul class="planner-unscheduled-list">
+                </ul>
+            </aside>
+        </div>
+    </div>
 </body>
 </html>

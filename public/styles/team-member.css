@@ -1,0 +1,285 @@
+:root {
+    --tm-bg: #ffffff;
+    --tm-surface: #f4f5f7;
+    --tm-text: #172b4d;
+    --tm-muted: #6b778c;
+    --tm-border: #dfe1e6;
+    --tm-field-bg: #fafbfc;
+    --tm-primary: #0c66e4;
+    --tm-primary-hover: #0055cc;
+    --tm-primary-soft: #e9f2ff;
+    --tm-danger: #c9372c;
+    --tm-radius: 8px;
+    --tm-focus: 0 0 0 3px rgba(12, 102, 228, 0.25);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 14px;
+    color: var(--tm-text);
+    background: var(--tm-surface);
+}
+
+.team-member-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 24px 16px 64px;
+}
+
+.team-member-back-link {
+    align-self: flex-start;
+    color: var(--tm-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.team-member-back-link:hover {
+    text-decoration: underline;
+}
+
+.team-member-profile {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    padding: 24px;
+    background: var(--tm-bg);
+    border: 1px solid var(--tm-border);
+    border-radius: 12px;
+}
+
+.team-member-avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--tm-border);
+}
+
+.team-member-info {
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.team-member-name {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.team-member-role {
+    align-self: flex-start;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--tm-primary-soft);
+    color: var(--tm-primary);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.team-member-email {
+    color: var(--tm-muted);
+    text-decoration: none;
+}
+
+.team-member-email:hover {
+    text-decoration: underline;
+}
+
+.team-member-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.team-member-message-button,
+.team-member-remove-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--tm-radius);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+
+.team-member-message-button:focus-visible,
+.team-member-remove-button:focus-visible {
+    outline: none;
+    box-shadow: var(--tm-focus);
+}
+
+.team-member-message-button {
+    background: var(--tm-primary);
+    color: #fff;
+}
+
+.team-member-message-button:hover {
+    background: var(--tm-primary-hover);
+}
+
+.team-member-remove-button {
+    background: transparent;
+    color: var(--tm-danger);
+}
+
+.team-member-remove-button:hover {
+    background: var(--tm-danger);
+    color: #fff;
+}
+
+.team-member-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.team-member-stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 18px 12px;
+    background: var(--tm-bg);
+    border: 1px solid var(--tm-border);
+    border-radius: 12px;
+}
+
+.team-member-stat-value {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.team-member-stat-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--tm-muted);
+}
+
+.team-member-tasks,
+.team-member-worklogs {
+    padding: 24px;
+    background: var(--tm-bg);
+    border: 1px solid var(--tm-border);
+    border-radius: 12px;
+}
+
+.team-member-section-title {
+    margin: 0 0 16px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.filter-label {
+    margin-right: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--tm-muted);
+}
+
+.member-status-select {
+    padding: 8px 10px;
+    border: 2px solid var(--tm-border);
+    border-radius: var(--tm-radius);
+    background: var(--tm-field-bg);
+    color: var(--tm-text);
+    font: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+.member-status-select:hover {
+    background: #f1f2f4;
+}
+
+.member-status-select:focus {
+    outline: none;
+    border-color: var(--tm-primary);
+    background: var(--tm-bg);
+    box-shadow: var(--tm-focus);
+}
+
+.team-member-tasks-list,
+.team-member-worklogs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.team-member-task,
+.team-member-worklog {
+    padding: 10px 12px;
+    border: 1px solid var(--tm-border);
+    border-radius: var(--tm-radius);
+    background: var(--tm-field-bg);
+}
+
+.team-member-task {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+}
+
+.team-member-task-link {
+    flex: 1 1 200px;
+    color: var(--tm-text);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.team-member-task-link:hover {
+    color: var(--tm-primary);
+}
+
+.team-member-task-status,
+.team-member-task-priority,
+.team-member-task-date,
+.team-member-worklog-date {
+    font-size: 12px;
+    color: var(--tm-muted);
+}
+
+.team-member-worklog-task {
+    color: var(--tm-primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.team-member-worklog-task:hover {
+    text-decoration: underline;
+}
+
+.team-member-worklog-text {
+    margin: 6px 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 480px) {
+    .team-member-container {
+        padding: 16px 12px 40px;
+    }
+
+    .team-member-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .team-member-profile,
+    .team-member-tasks,
+    .team-member-worklogs {
+        padding: 18px;
+    }
+}
