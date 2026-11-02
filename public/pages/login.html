@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board - Login</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../styles/login.css">
+</head>
+<body class="auth-page">
+    <main class="auth-card">
+        <header class="auth-header">
+            <h2 class="auth-title">Kanban Board</h2>
+        </header>
+
+        <div class="auth-tabs">
+            <button type="button" class="auth-tab active" data-target="login-form">Accedi</button>
+            <button type="button" class="auth-tab" data-target="register-form">Registrati</button>
+        </div>
+
+        <form id="login-form" class="auth-form" data-url="/auth/login">
+            <div class="form-field">
+                <label for="login-username">Username</label>
+                <input type="text" id="login-username" name="username" autocomplete="username" required>
+            </div>
+            <div class="form-field">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" name="password" autocomplete="current-password" required>
+            </div>
+            <p class="form-error" role="error"></p>
+            <button type="submit" class="btn btn-primary">Accedi</button>
+        </form>
+
+        <form id="register-form" class="auth-form" data-url="/auth/register" hidden>
+            <div class="form-field">
+                <label for="register-name">Nome completo</label>
+                <input type="text" id="register-name" name="name" autocomplete="name" required>
+            </div>
+            <div class="form-field">
+                <label for="register-username">Username</label>
+                <input type="text" id="register-username" name="username" autocomplete="username" required>
+            </div>
+            <div class="form-field">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" name="email" autocomplete="email" required>
+            </div>
+            <div class="form-field">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" name="password" autocomplete="new-password" minlength="8" required>
+                <small class="form-hint">Almeno 8 caratteri</small>
+            </div>
+            <p class="form-error" role="alert"></p>
+            <button type="submit" class="btn btn-primary">Crea account</button>
+        </form>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <script src="../scripts/api.js"></script>
+    <script src="../scripts/login.js"></script>
+</body>
+</html>
