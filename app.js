@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const connectDB = require('./db/connect');
 require('dotenv').config();
-const errorHandler = require('./middleware/error-handler');
+const {errorHandler} = require('./middleware/error-handler');
 const authMiddleware = require('./middleware/auth');
 const port = process.env.PORT || 3000;
 
