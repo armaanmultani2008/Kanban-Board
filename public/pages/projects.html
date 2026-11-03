@@ -1,10 +1,113 @@
+<!-- public/pages/projects.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board - Progetti</title>
+    <script>document.documentElement.dataset.theme = localStorage.getItem('theme') || 'light';</script>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/styles/projects.css">
 </head>
 <body>
+    <nav class="navbar">
+        <a class="navbar-logo" href="/index.html">Kanban Board</a>
+        <ul class="navbar-links">
+            <li><a class="navbar-link" href="/index.html">Board</a></li>
+            <li><a class="navbar-link active" href="/pages/projects.html">Progetti</a></li>
+            <li><a class="navbar-link" href="/pages/team.html">Team</a></li>
+        </ul>
+        <a class="avatar" id="navbar-avatar" href="/pages/account.html" title="Account">?</a>
+    </nav>
 
+    <main class="page">
+        <header class="page-header">
+            <div>
+                <h1>Progetti</h1>
+                <p class="page-subtitle">I progetti tuoi e del tuo team.</p>
+            </div>
+            <button type="button" class="btn btn-primary" id="open-project-dialog">Crea progetto</button>
+        </header>
+
+        <div class="toolbar">
+            <input type="search" id="project-search" class="control" placeholder="Cerca progetto">
+            <select id="project-status-filter" class="control">
+                <option value="">Tutti gli stati</option>
+                <option value="planned">Pianificati</option>
+                <option value="active">In corso</option>
+                <option value="completed">Completati</option>
+            </select>
+        </div>
+
+        <div class="table-wrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Obiettivo</th>
+                        <th>Stato</th>
+                        <th>Creato il</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="projects-body"></tbody>
+            </table>
+        </div>
+        <p id="projects-empty" class="empty-state" hidden>Nessun progetto trovato.</p>
+    </main>
+
+    <template id="project-row-template">
+        <tr class="project-row">
+            <td><a class="project-link" href="/index.html"></a></td>
+            <td class="project-goal"></td>
+            <td><span class="lozenge project-status"></span></td>
+            <td class="project-created"></td>
+            <td class="project-actions">
+                <button type="button" class="btn btn-sm project-edit">Modifica</button>
+                <button type="button" class="btn btn-sm btn-danger project-delete">Elimina</button>
+            </td>
+        </tr>
+    </template>
+
+    <dialog id="project-dialog" class="dialog">
+        <form id="project-form" class="stack-form">
+            <header class="dialog-header">
+                <h2 id="project-dialog-title">Crea progetto</h2>
+                <button type="button" class="icon-btn" data-close aria-label="Chiudi">X</button>
+            </header>
+            <div class="dialog-body stack-form">
+                <input type="hidden" name="id">
+                <div class="form-field">
+                    <label for="project-title-input">Nome</label>
+                    <input id="project-title-input" name="title" type="text" maxlength="30" required>
+                </div>
+                <div class="form-field">
+                    <label for="project-description-input">Descrizione</label>
+                    <textarea id="project-description-input" name="description" maxlength="500"></textarea>
+                </div>
+                <div class="form-field">
+                    <label for="project-goal-input">Obiettivo</label>
+                    <input id="project-goal-input" name="goal" type="text">
+                </div>
+                <div class="form-field">
+                    <label for="project-status-input">Stato</label>
+                    <select id="project-status-input" name="status">
+                        <option value="planned">Pianificato</option>
+                        <option value="active">In corso</option>
+                        <option value="completed">Completato</option>
+                    </select>
+                </div>
+                <p class="form-error" role="alert"></p>
+            </div>
+            <footer class="dialog-footer">
+                <button type="button" class="btn" data-close>Annulla</button>
+                <button type="submit" class="btn btn-primary">Salva</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <script src="/scripts/api.js"></script>
+    <script src="/scripts/projects.js"></script>
 </body>
 </html>

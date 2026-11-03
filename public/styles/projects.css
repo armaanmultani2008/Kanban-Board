@@ -1,0 +1,3 @@
+.project-link { font-weight: 600; text-decoration: none; }
+.project-link:hover { text-decoration: underline; }
+.project-actions { display: flex; gap: 8px; justify-content: flex-end; }
