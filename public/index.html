@@ -4,36 +4,306 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kanban Board</title>
+    <script>document.documentElement.dataset.theme = localStorage.getItem('theme') || 'light';</script>
     <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+    <link rel="stylesheet" href="styles/index.css">
 </head>
 <body>
-    <div data-include="nav-bar"></div>
+    <nav class="navbar">
+        <a class="navbar-logo" href="/index.html">Kanban Board</a>
+        <ul class="navbar-links">
+            <li><a class="navbar-link active" href="/index.html">Board</a></li>
+            <li><a class="navbar-link" href="/pages/projects.html">Progetti</a></li>
+            <li><a class="navbar-link" href="/pages/team.html">Team</a></li>
+        </ul>
+        <a class="avatar" id="navbar-avatar" href="/pages/account.html" title="Account">?</a>
+    </nav>
 
-    <main class="app">
-        <header class="app-header">
-            <select class="select-project">
-                <option class="option-project" onclick="loadProject()">Progetto 1</option>
-            </select>
+    <main class="page">
+        <header class="project-header">
+            <div class="project-header-top">
+                <label class="visually-hidden" for="project-select">Progetto</label>
+                <select id="project-select" class="control project-select"></select>
+                <button type="button" class="btn btn-primary" id="open-create-task">Crea task</button>
+            </div>
+            <nav class="tabs" aria-label="Viste del progetto">
+                <button type="button" class="tab" data-view="summary-view">Dettagli</button>
+                <button type="button" class="tab" data-view="list-view">Lista</button>
+                <button type="button" class="tab" data-view="board-view">Board</button>
+            </nav>
         </header>
 
-        <nav class="project-nav">
-            <ul class="project-nav-list">
-                <li class="project-nav-link"><button class="project-nav-link-btn project-details" onclick="loadProjectSummary()">Dettagli</button></li>
-                <li class="project-nav-link"><button class="project-nav-link-btn project-list" onclick="loadProjectTasksList()">Lista</button></li>
-                <li class="project-nav-link"><button class="project-nav-link-btn project-board" onclick="loadProjectBoard()">Board</button></li>
-            </ul>
-        </nav>
+        <p id="empty-state" class="empty-state" hidden>
+            Non hai ancora nessun progetto. Creane uno dalla pagina <a href="/pages/projects.html">Progetti</a>
+        </p>
+
+        <section id="summary-view" class="view" hidden>
+            <div class="card">
+                <h2 id="project-title"></h2>
+                <p id="project-description"></p>
+                <p>Obiettivo: <span id="project-goal"></span></p>
+                <p>Stato: <span id="project-status" class="lozenge"></span></p>
+            </div>
+            <div class="summary-stats">
+                <div class="stat-card">
+                    <span class="stat-number" data-count="inbox">0</span>
+                    <span class="stat-label">Inbox</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="todo">0</span>
+                    <span class="stat-label">To Do</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="in_progress">0</span>
+                    <span class="stat-label">In Progress</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="in_review">0</span>
+                    <span class="stat-label">In Review</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number" data-count="done">0</span>
+                    <span class="stat-label">Done</span>
+                </div>
+            </div>
+            <div class="summary-charts">
+                <div class="card">
+                    <h3>Per priorità</h3>
+                    <div id="priority-breakdown"></div>
+                </div>
+                <div class="card">
+                    <h3>Per tipo di lavoro</h3>
+                    <div id="type-breakdown"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="list-view" class="view">
+            <div class="table-wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Riepilogo</th>
+                            <th>Stato</th>
+                            <th>Priorità</th>
+                            <th>Assegnata a</th>
+                            <th>Scadenza</th>
+                        </tr>
+                    </thead>
+                    <tbody id="list-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="board-view" class="view">
+            <div class="toolbar">
+                <input type="search" id="task-search" class="control" placeholder="Cerca task">
+                <select id="filter-priority" class="control">
+                    <option value="">Tutte le priorità</option>
+                    <option value="urgent">Urgent</option>
+                    <option value="important">Important</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                    <option value="lowest">Lowest</option>
+                </select>
+                <select id="filter-type" class="control">
+                    <option value="">Tutti i tipi</option>
+                    <option value="frontend">Frontend</option>
+                    <option value="backend">Backend</option>
+                    <option value="deploy">Deploy</option>
+                    <option value="design">Design</option>
+                    <option value="other">Other</option>
+                </select>
+                <label class="toggle"><input type="checkbox" id="filter-mine"> Solo le mie</label>
+            </div>
+
+            <div class="board">
+                <section class="column" data-status="inbox">
+                    <header class="column-header"><h3 class="column-title">Inbox</h3><span class="column-count">0</span></header>
+                    <div class="column-cards"></div>
+                </section>
+                <section class="column" data-status="todo">
+                    <header class="column-header"><h3 class="column-title">To Do</h3><span class="column-count">0</span></header>
+                    <div class="column-cards"></div>
+                </section>
+                <section class="column" data-status="in_progress">
+                    <header class="column-header"><h3 class="column-title">In Progress</h3><span class="column-count">0</span></header>
+                    <div class="column-cards"></div>
+                </section>
+                <section class="column" data-status="in_review">
+                    <header class="column-header"><h3 class="column-title">In Review</h3><span class="column-count">0</span></header>
+                    <div class="column-cards"></div>
+                </section>
+                <section class="column" data-status="done">
+                    <header class="column-header"><h3 class="column-title">Done</h3><span class="column-count">0</span></header>
+                    <div class="column-cards"></div>
+                </section>
+            </div>
+        </section>
     </main>
 
-    <script defer>
-        $(function () {
-            var includes = $('[data-include]');
-            $.each(includes, function () {
-                var file = 'pages/' + $(this).data('include') + '.html';
-                $(this).load(file);
-            });
-        });
-    </script>
+    <template id="task-card-template">
+        <article class="task-card" tabindex="0">
+            <p class="task-summary"></p>
+            <div class="task-meta">
+                <span class="lozenge task-type"></span>
+                <span class="task-due"></span>
+                <span class="priority task-priority"></span>
+                <span class="avatar avatar-sm task-assignee"></span>
+            </div>
+        </article>
+    </template>
+
+    <template id="list-row-template">
+        <tr class="list-row">
+            <td><span class="lozenge row-type"></span></td>
+            <td><span class="row-summary"></span></td>
+            <td><span class="priority row-priority"></span></td>
+            <td><span class="row-assignee"></span></td>
+            <td><span class="row-due"></span></td>
+        </tr> 
+    </template>
+
+    <template id="note-template">
+        <li class="note">
+            <span class="avatar avatar-sm note-avatar"></span>
+            <div class="note-content">
+                <p class="note-header">
+                    <strong class="note-author"></strong>
+                    <time class="note-date"></time>
+                    <span class="lozenge note-issue" hidden>Issue</span>
+                </p>
+                <p class="note-text"></p>
+                <div class="note-actions">
+                    <button type="button" class="link-btn note-resolve" hidden>Segna come risolta</button>
+                    <button type="button" class="link-btn note-delete" hidden>Elimina</button>
+                </div>
+            </div>
+        </li>
+    </template>
+
+    <dialog id="create-task-dialog" class="dialog">
+        <form id="create-task-form" class="stack-form">
+            <header class="dialog-header">
+                <h2>Crea task</h2>
+                <button type="button" class="icon-btn" data-close aria-label="Chiudi">X</button>
+            </header>
+            <div class="dialog-body stack-form">
+                <div class="form-field">        
+                    <label for="new-summary">Riepilogo</label>
+                    <input id="new-summary" type="text" maxlength="100" required>
+                </div>
+                <div class="form-field">        
+                    <label for="new-description">Descrizione</label>
+                    <textarea id="new-description" name="description" maxlength="500"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="new-work-type">Tipo di lavoro</label>
+                        <select id="new-work-type" name="work_type">
+                            <option value="frontend">Frontend</option>
+                            <option value="backend">Backend</option>
+                            <option value="deploy">Deploy</option>
+                            <option value="design">Design</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="new-priority">Priorità</label>
+                        <select id="new-priority" name="priority">
+                            <option value="urgent">Urgent</option>
+                            <option value="important">Important</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                            <option value="lowest">Lowest</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="task-dialog" class="dialog dialog-wide">
+        <header class="dialog-header">
+            <h2>Dettagli task</h2>
+            <button type="button" class="icon-btn" data-close aria-label="Chiudi">X</button>
+        </header>
+        <div class="task-detail">
+            <div class="task-detail-main">
+                <input id="task-summary-input" class="control task-summary-input" type="text" maxlength="100" aria-label="Riepilogo">
+                <div class="form-field">
+                    <label for="task-description-input">Descrizione</label>
+                    <textarea id="task-description-input" maxlength="500"></textarea>
+                </div>
+
+                <h3>Commenti e issue</h3>
+                <ul id="comment-list" class="note-list"></ul>
+                <form id="comment-form" class="stack-form">
+                    <textarea name="text" class="control" placeholder="Scrivi un commento..." maxlength="1000" required></textarea>
+                    <label class="toggle"><input type="checkbox" name="isIssue">È un'issue da risolvere</label>
+                    <button type="submit" class="btn btn-primary btn-sm">Aggiungi</button>
+                </form>
+
+                <h3>Log di lavoro</h3>
+                <ul id="worklog-list" class="note-list"></ul>
+                <form id="worklog-form" class="stack-form">
+                    <textarea name="text" class="control" placeholder="Cosa hai fatto?" maxlength="1000" required></textarea>
+                    <button type="submit" class="btn btn-primary btn-sm">Registra</button>
+                </form>
+            </div>
+
+            <aside class="task-detail-side">
+                <div class="form-field">
+                    <label for="task-status-select">Stato</label>
+                    <select id="task-status-select">
+                        <option value="inbox">Inbox</option>
+                        <option value="todo">To Do</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="in_review">In Review</option>
+                        <option value="done">Done</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="task-assignee-select">Assegnatario</label>
+                    <select id="task-assignee-select">
+                        <option value="">Non assegnata</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="task-priority-select">Priorità</label>
+                    <select id="task-priority-select">
+                        <option value="urgent">Urgent</option>
+                        <option value="important">Important</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                        <option value="lowest">Lowest</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="task-type-select">Tipo di lavoro</label>
+                    <select id="task-type-select">
+                        <option value="frontend">Frontend</option>
+                        <option value="backend">Backend</option>
+                        <option value="deploy">Deploy</option>
+                        <option value="design">Design</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-field">
+                    <label for="task-due-input">Scadenza</label>
+                    <input id="task-due-input" type="date">
+                </div>
+                <p class="task-reporter">Creata da <strong id="task-reporter"></strong></p>
+                <p class="form-error" id="task-error" role="alert"></p>
+                <button type="button" class="btn btn-primary" id="save-task">Salva modifiche</button>
+                <button type="button" class="btn btn-danger" id="delete-task">Elimina task</button>
+            </aside>
+        </div>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <script src="/scripts/api.js"></script>
+    <script src="/scripts/index.js"></script>
 </body>
 </html>
