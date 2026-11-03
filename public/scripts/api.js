@@ -31,3 +31,16 @@ function logout() {
     localStorage.remove('user');
     window.location.replace(LOGIN_PAGE);
 }
+
+function getErrorMessage(err) {
+    const message = (err.response && err.response.data && err.response.data.msg) || 'Impossibile contattare il server';
+    return message;
+}
+
+const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+const navbarAvatar = document.getElementById('navbar-avatar');
+if (navbarAvatar && currentUser) {
+    navbarAvatar.textContent = (currentUser.name || currentUser.username || '?')
+        .split(' ').map(word => word[0]).join('').slice(0, 2).toUpperCase();
+    navbarAvatar.title = currentUser.username;
+}
