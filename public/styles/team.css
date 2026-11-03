@@ -1,0 +1,14 @@
+.team-options { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.invite-box { display: flex; align-items: center; gap: 12px; margin-bottom: 0; }
+.invite-box code { padding: 4px 8px; background: var(--hover); border-radius: 4px; font-size: 1rem; }
+
+.member-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.member-card { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
+.member-avatar { width: 40px; height: 40px; font-size: 0.875rem; }
+.member-info { flex: 1; min-width: 0; }
+.member-name { margin: 0; font-weight: 600; }
+.member-role { margin: 0; font-size: 0.875rem; color: var(--text-muted); }
+
+@media (max-width: 720px) {
+    .team-options { grid-template-columns: 1fr; }
+}

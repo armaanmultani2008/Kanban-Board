@@ -1,10 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board - Team</title>
+    <script>document.documentElement.dataset.theme = localStorage.getItem('theme') || 'light';</script>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/styles/team.css">
 </head>
 <body>
+    <nav class="navbar">
+        <a class="navbar-logo" href="/index.html">Kanban Board</a>
+        <ul class="navbar-links">
+            <li><a class="navbar-link" href="/index.html">Board</a></li>
+            <li><a class="navbar-link" href="/pages/projects.html">Progetti</a></li>
+            <li><a class="navbar-link active" href="/pages/team.html">Team</a></li>
+        </ul>
+        <a class="avatar" id="navbar-avatar" href="/pages/account.html" title="Account">?</a>
+    </nav>
 
+    <main class="page">
+        <section id="no-team" hidden>
+            <header class="page-header">
+                <div>
+                    <h1>Team</h1>
+                    <p class="page-subtitle">Devi far parte di un team per condividere i progetti con altre persone.</p>
+                </div>
+            </header>
+            <div class="team-options">
+                <form id="create-team-form" class="card stack-form">
+                    <h2>Crea un team</h2>
+                    <div class="form-field">
+                        <label for="team-name-input">Nome</label>
+                        <input id="team-name-input" name="name" type="text" required>
+                    </div>
+                    <div class="form-field">
+                        <label for="team-description-input">Descrizione</label>
+                        <textarea id="team-description-input" name="description"></textarea>
+                    </div>
+                    <div class="form-field">
+                        <label for="team-goal-input">Obiettivo</label>
+                        <input id="team-goal-input" name="goal" type="text">
+                    </div>
+                    <p class="form-error" role="alert"></p>
+                    <button type="submit" class="btn btn-primary">Crea team</button>
+                </form>
+
+                <form id="join-team-form" class="card stack-form">
+                    <h2>Entra con un codice</h2>
+                    <div class="form-field">
+                        <label for="invite-code-input">Codice d'invito</label>
+                        <input id="invite-code-input" name="inviteCode" type="text" required>
+                    </div>
+                    <p class="form-error" role="alert"></p>
+                    <button type="submit" class="btn btn-primary">Entra nel team</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="team-view" hidden>
+            <header class="page-header">
+                <div>
+                    <h1 id="team-name"></h1>
+                    <p id="team-description" class="page-subtitle"></p>
+                </div>
+                <div class="header-actions">
+                    <button type="button" class="btn" id="edit-team-btn" hidden>Modifica team</button>
+                    <button type="button" class="btn btn-danger" id="delete-team-btn" hidden>Elimina team</button>
+                    <button type="button" class="btn btn-danger" id="leave-team-btn">Abbandona team</button>
+                </div>
+            </header>
+
+            <div class="card">
+                <p>Obiettivo: <span id="team-goal"></span></p>
+                <p class="invite-box">
+                    Codice d'invito: <code id="invite-code"></code>
+                    <button type="button" class="btn btn-sm" id="copy-invite-btn">Copia</button>
+                </p>
+            </div>
+
+            <h2>Membri (<span id="member-count">0</span>)</h2>
+            <div class="toolbar">
+                <input type="search" id="member-search" class="control" placeholder="Cerca membro">
+            </div>
+            <ul id="member-list" class="member-list"></ul>
+        </section>
+    </main>
+
+    <template id="member-template">
+        <li class="member-card">
+            <span class="avatar member-avatar"></span>
+            <div class="member-info">
+                <p class="member-name"></p>
+                <p class="member-role"></p>
+            </div>
+            <span class="lozenge member-admin" hidden>Admin</span>
+            <button type="button" class="btn btn-sm btn-danger member-remove" hidden>Rimuovi</button>
+        </li>
+    </template>
+
+    <dialog id="edit-team-dialog" class="dialog">
+        <form id="edit-team-form" class="stack-form">
+            <header class="dialog-header">
+                <h2>Modifica team</h2>
+                <button type="button" class="icon-btn" data-close aria-label="Chiudi">✕</button>
+            </header>
+            <div class="dialog-body stack-form">
+                <div class="form-field">
+                    <label for="edit-team-name">Nome</label>
+                    <input id="edit-team-name" name="name" type="text" required>
+                </div>
+                <div class="form-field">
+                    <label for="edit-team-description">Descrizione</label>
+                    <textarea id="edit-team-description" name="description"></textarea>
+                </div>
+                <div class="form-field">
+                    <label for="edit-team-goal">Obiettivo</label>
+                    <input id="edit-team-goal" name="goal" type="text">
+                </div>
+                <p class="form-error" role="alert"></p>
+            </div>
+            <footer class="dialog-footer">
+                <button type="button" class="btn" data-close>Annulla</button>
+                <button type="submit" class="btn btn-primary">Salva</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <script src="/scripts/api.js"></script>
+    <script src="/scripts/team.js"></script>
 </body>
 </html>
