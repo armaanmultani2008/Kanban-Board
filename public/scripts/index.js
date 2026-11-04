@@ -1,5 +1,7 @@
 const projectSelect = document.querySelector('.project-select');
 const projectTabs = document.querySelector('.tabs');
+const taskToolbar = document.getElementById('task-toolbar');
+const boardError = document.getElementById('board-error');
 const btnCreateTask = document.getElementById('open-create-task');
 const emptyStateP = document.querySelector('.empty-state');
 const views = document.querySelectorAll('.view');
@@ -63,6 +65,7 @@ function clonaTemplate(id) {
 
 function mostraView(viewId) {
     currentView = viewId;
+    taskToolbar.hidden = viewId !== 'board-view' && viewId !== 'list-view';
     views.forEach(view => {
         view.hidden = view.id !== viewId;
     });
@@ -184,8 +187,9 @@ function getTaskFiltrate() {
 }
 
 function renderAll() {
-    renderBoard(getTaskFiltrate());
-    renderList(allTasks);
+    const filteredTasks = getTaskFiltrate();
+    renderBoard(filteredTasks);
+    renderList(filteredTasks);
     renderSummary(allTasks);
 }
 
@@ -490,18 +494,74 @@ projectTabs.addEventListener('click', event => {
 
 btnCreateTask.addEventListener('click', apriCreateDialog);
 
-['task-search', 'filter-priority', 'filter-type', 'filter-mine'].forEach((id) => {
-    document.getElementById(id).addEventListener('input', renderAll);
+document.getElementById('task-search').addEventListener('input', renderAll);
+['filter-priority', 'filter-type', 'filter-mine'].forEach((id) => {
+    document.getElementById(id).addEventListener('change', renderAll);
 });
 
-document.querySelector('.board').addEventListener('click', (event) => {
+const board = document.querySelector('.board');
+
+board.addEventListener('click', (event) => {
     const card = event.target.closest('.task-card');
     if (card) apriTask(card.dataset.id);
 });
 
-document.querySelector('.board').addEventListener('keydown', (event) => {
+board.addEventListener('keydown', (event) => {
     const card = event.target.closest('.task-card');
     if (event.key === 'Enter' && card) apriTask(card.dataset.id);
+});
+
+board.addEventListener('dragstart', (event) => {
+    const card = event.target.closest('.task-card');
+    if (!card || !event.dataTransfer) return;
+    event.dataTransfer.setData('text/plain', card.dataset.id);
+    event.dataTransfer.effectAllowed = 'move';
+    card.classList.add('dragging');
+    boardError.hidden = true;
+});
+
+board.addEventListener('dragover', (event) => {
+    const column = event.target.closest('.column');
+    if (!column || !event.dataTransfer) return;
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+});
+
+board.addEventListener('dragenter', (event) => {
+    const column = event.target.closest('.column');
+    if (column) column.classList.add('drag-over');
+});
+
+board.addEventListener('dragleave', (event) => {
+    const column = event.target.closest('.column');
+    if (column && !column.contains(event.relatedTarget)) column.classList.remove('drag-over');
+});
+
+board.addEventListener('drop', async (event) => {
+    const column = event.target.closest('.column');
+    const taskId = event.dataTransfer && event.dataTransfer.getData('text/plain');
+    if (!column || !taskId) return;
+    event.preventDefault();
+    board.querySelectorAll('.column.drag-over').forEach(item => item.classList.remove('drag-over'));
+
+    const task = allTasks.find(item => item._id === taskId);
+    const status = column.dataset.status;
+    if (!task || !status || task.status === status) return;
+
+    boardError.hidden = true;
+    try {
+        await api.patch(`/tasks/${taskId}`, {status});
+        task.status = status;
+        renderAll();
+    } catch (err) {
+        boardError.textContent = getErrorMessage(err);
+        boardError.hidden = false;
+    }
+});
+
+board.addEventListener('dragend', () => {
+    board.querySelectorAll('.task-card.dragging').forEach(card => card.classList.remove('dragging'));
+    board.querySelectorAll('.column.drag-over').forEach(column => column.classList.remove('drag-over'));
 });
 
 document.getElementById('list-body').addEventListener('click', (event) => {

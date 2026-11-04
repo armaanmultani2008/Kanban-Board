@@ -37,6 +37,28 @@
             Non hai ancora nessun progetto. Creane uno dalla pagina <a href="/pages/projects.html">Progetti</a>
         </p>
 
+        <div class="toolbar task-toolbar" id="task-toolbar" hidden>
+            <input type="search" id="task-search" class="control" placeholder="Cerca task" aria-label="Cerca task">
+            <select id="filter-priority" class="control" aria-label="Filtra per priorità">
+                <option value="">Tutte le priorità</option>
+                <option value="urgent">Urgent</option>
+                <option value="important">Important</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+                <option value="lowest">Lowest</option>
+            </select>
+            <select id="filter-type" class="control" aria-label="Filtra per tipo">
+                <option value="">Tutti i tipi</option>
+                <option value="frontend">Frontend</option>
+                <option value="backend">Backend</option>
+                <option value="deploy">Deploy</option>
+                <option value="design">Design</option>
+                <option value="other">Other</option>
+            </select>
+            <label class="toggle"><input type="checkbox" id="filter-mine"> Solo le mie</label>
+            <p id="board-error" class="form-error" role="alert" hidden></p>
+        </div>
+
         <section id="summary-view" class="view" hidden>
             <div class="card">
                 <h2 id="project-title"></h2>
@@ -97,27 +119,6 @@
         </section>
 
         <section id="board-view" class="view">
-            <div class="toolbar">
-                <input type="search" id="task-search" class="control" placeholder="Cerca task">
-                <select id="filter-priority" class="control">
-                    <option value="">Tutte le priorità</option>
-                    <option value="urgent">Urgent</option>
-                    <option value="important">Important</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                    <option value="lowest">Lowest</option>
-                </select>
-                <select id="filter-type" class="control">
-                    <option value="">Tutti i tipi</option>
-                    <option value="frontend">Frontend</option>
-                    <option value="backend">Backend</option>
-                    <option value="deploy">Deploy</option>
-                    <option value="design">Design</option>
-                    <option value="other">Other</option>
-                </select>
-                <label class="toggle"><input type="checkbox" id="filter-mine"> Solo le mie</label>
-            </div>
-
             <div class="board">
                 <section class="column" data-status="inbox">
                     <header class="column-header"><h3 class="column-title">Inbox</h3><span class="column-count">0</span></header>
@@ -144,7 +145,7 @@
     </main>
 
     <template id="task-card-template">
-        <article class="task-card" tabindex="0">
+        <article class="task-card" tabindex="0" draggable="true">
             <p class="task-summary"></p>
             <div class="task-meta">
                 <span class="lozenge task-type"></span>

@@ -1,6 +1,8 @@
 .project-header { margin-bottom: 16px; border-bottom: 1px solid var(--border); }
 .project-header-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
 .project-select { min-width: 240px; font-size: 1.125rem; font-weight: 600; }
+.task-toolbar { margin-bottom: 16px; }
+.task-toolbar .form-error { flex-basis: 100%; margin: 0; }
 
 .tabs { display: flex; gap: 8px; }
 .tab { padding: 8px 12px; font: inherit; font-weight: 600; color: var(--text-muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; }
@@ -13,8 +15,11 @@
 .column-title { margin: 0; font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-muted); }
 .column-count { padding: 0 6px; border-radius: 10px; font-size: 0.75rem; font-weight: 600; color: var(--text-muted); background: var(--hover); }
 .column-cards { display: flex; flex-direction: column; gap: 8px; }
+.column.drag-over { outline: 2px dashed var(--primary); outline-offset: -2px; }
 
 .task-card { padding: 12px; background: var(--surface); border-radius: var(--radius); box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25); cursor: pointer; }
+.task-card[draggable="true"] { cursor: grab; }
+.task-card.dragging { opacity: 0.5; cursor: grabbing; }
 .task-card:hover { background: var(--hover); }
 .task-card:focus-visible { outline: 2px solid var(--primary); }
 .task-summary { margin: 0 0 12px; font-size: 0.875rem; overflow-wrap: anywhere; }
