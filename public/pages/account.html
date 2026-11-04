@@ -1,10 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board - Account</title>
+    <script>document.documentElement.dataset.theme = localStorage.getItem('theme') || 'light';</script>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/styles/account.css">
 </head>
 <body>
+    <nav class="navbar">
+        <a class="navbar-logo" href="/index.html">Kanban Board</a>
+        <ul class="navbar-links">
+            <li><a class="navbar-link" href="/index.html">Board</a></li>
+            <li><a class="navbar-link" href="/pages/projects.html">Progetti</a></li>
+            <li><a class="navbar-link" href="/pages/team.html">Team</a></li>
+        </ul>
+        <a class="avatar" id="navbar-avatar" href="/pages/account.html" title="Account">?</a>
+    </nav>
 
+    <main class="page page-narrow">
+        <header class="page-header">
+            <h1>Il tuo account</h1>
+        </header>
+
+        <form id="profile-form" class="card stack-form">
+            <h2>Profilo</h2>
+            <div class="form-field">
+                <label for="profile-email">Email</label>
+                <input id="profile-email" type="email" readonly disabled>
+            </div>
+            <div class="form-field">
+                <label for="profile-name">Nome</label>
+                <input id="profile-name" name="name" type="text" required>
+            </div>
+            <div class="form-field">
+                <label for="profile-username">Username</label>
+                <input id="profile-username" name="username" type="text" required>
+            </div>
+            <div class="form-field">
+                <label for="profile-job-title">Ruolo</label>
+                <input id="profile-job-title" name="job_title" type="text">
+            </div>
+            <div class="form-field">
+                <label for="profile-biography">Biografia</label>
+                <textarea id="profile-biography" name="biography" maxlength="500"></textarea>
+            </div>
+            <p class="form-error" role="alert"></p>
+            <p class="form-success" role="status"></p>
+            <button type="submit" class="btn btn-primary">Salva modifiche</button>
+        </form>
+
+        <section class="card">
+            <h2>Preferenze</h2>
+            <label class="toggle"><input type="checkbox" id="dark-mode-toggle"> Modalità scura</label>
+        </section>
+
+        <section class="card">
+            <h2>Sessione</h2>
+            <button type="button" class="btn btn-danger" id="logout-btn">Esci</button>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.7.9/dist/axios.min.js"></script>
+    <script src="/scripts/api.js"></script>
+    <script src="/scripts/account.js"></script>
 </body>
 </html>

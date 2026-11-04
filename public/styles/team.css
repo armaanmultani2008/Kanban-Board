@@ -1,0 +1,96 @@
+.team-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: 18px;
+}
+
+.team-options .card {
+    margin-bottom: 0;
+}
+
+.team-options h2 {
+    margin-bottom: 3px;
+}
+
+.invite-box {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0;
+}
+
+.invite-box code {
+    padding: 5px 9px;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    background: var(--hover);
+    color: var(--text);
+    font-size: 0.96rem;
+    letter-spacing: 0.07em;
+}
+
+.member-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.member-card {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    transition: border-color 140ms ease, transform 140ms ease;
+}
+
+.member-card:hover {
+    transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--primary) 36%, var(--border));
+}
+
+.member-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 0.84rem;
+}
+
+.member-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.member-name {
+    overflow: hidden;
+    margin: 0;
+    font-weight: 650;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.member-role {
+    overflow: hidden;
+    margin: 1px 0 0;
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+    .team-options {
+        grid-template-columns: 1fr;
+    }
+
+    .invite-box {
+        align-items: flex-start;
+    }
+}

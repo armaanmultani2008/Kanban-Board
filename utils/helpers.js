@@ -13,14 +13,15 @@ const isSameId = (id1, id2) => {
 }
 
 const scegliChiavi = (obj, keys) => {
-    return Object.fromEntries(keys.filter((k) => obj[k] !== undefined)).map((k) => [k, obj[k]]);
+    return Object.fromEntries(keys.filter((key) => obj[key] !== undefined).map((key) => [key, obj[key]]));
 }
 
 const trovaProjectAccessibile = async (projectID, user) => {
     const project = await Project.findById(projectID);
-    const canAccess = project
-        && (isSameId(project.owner, user._id))
-        || (isSameId(project.team, user.team));
+    const canAccess = project && (
+        isSameId(project.owner, user._id)
+        || isSameId(project.team, user.team)
+    );
     if (!canAccess) throw new HttpError(404, 'Project not found');
     return project;
 }

@@ -8,7 +8,7 @@ const getCurrentUser = async (req, res) => {
 const updateCurrentUser = async (req, res) => {
     const updates = scegliChiavi(req.body,
         ['name', 'username', 'job_title', 'biography']);
-    const user = await User.finByIdAndUpdate(req.user._id, updates, {
+    const user = await User.findByIdAndUpdate(req.user._id, updates, {
         new: true,
         runValidators: true
     });
@@ -17,9 +17,12 @@ const updateCurrentUser = async (req, res) => {
 
 const getUser = async (req, res) => {
     const {id: userID} = req.params;
-    const user = await findById(userID)
+    const user = await User.findById(userID)
         .select('name username job_title biography team');
-    const visible = user && (isSameId(userID, req.user._id)) || (isSameId(user.team, req.user.team));
+    if (!user) throw new HttpError(404, 'User not found');
+    const visible = isSameId(user._id, req.user._id)
+        || (req.user.team && isSameId(user.team, req.user.team));
+    if (!visible) throw new HttpError(404, 'User not found');
     res.status(200).json({user});
 }
 
