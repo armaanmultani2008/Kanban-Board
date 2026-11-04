@@ -1,12 +1,19 @@
 const Project = require('../models/project');
 const Task = require('../models/task');
+const User = require('../models/user');
 const {HttpError, isSameId, scegliChiavi, trovaProjectAccessibile} = require('../utils/helpers');
 
 const PROJECT_FIELDS = ['title', 'description', 'goal', 'status'];
 
 const getProjects = async (req, res) => {
     const visibleTo = [{owner: req.user._id}];
-    if (req.user.team) visibleTo.push({team: req.user.team});
+    if (req.user.team) {
+        const teamOwners = await User.distinct('_id', {team: req.user.team});
+        visibleTo.push(
+            {team: req.user.team},
+            {owner: {$in: teamOwners}}
+        );
+    }
 
     const filter = { $or: visibleTo };
     if (typeof req.query.status === 'string') filter.status = req.query.status;

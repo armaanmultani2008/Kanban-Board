@@ -2,5 +2,5 @@
 package-lock.json
 kanban-board-planning.txt
 .env
-/.idea
+.idea/
 .idea/inspectionProfiles/Project_Default.xml

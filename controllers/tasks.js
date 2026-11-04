@@ -7,7 +7,12 @@ const TASK_FIELDS = ['summary', 'description', 'status', 'work_type', 'priority'
 const assertValidAssignee = async (project, assigneeID) => {
     if (!assigneeID) return;
     const user = await User.findById(assigneeID).select('team');
-    const valid = user && (isSameId(user._id, project.owner) || isSameId(user.team, project.team));
+    const owner = await User.findById(project.owner).select('team');
+    const projectTeam = project.team || (owner && owner.team);
+    const valid = user && (
+        isSameId(user._id, project.owner)
+        || (projectTeam && isSameId(user.team, projectTeam))
+    );
     if (!valid) throw new HttpError(400, 'Assignee is not part of the project');
 }
 
