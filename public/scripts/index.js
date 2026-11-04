@@ -150,9 +150,14 @@ async function caricaMembri(project) {
         name: currentUser.name,
         username: currentUser.username,
     }];
-    if (!project.team) return;
+    let teamId = project.team;
+    if (!teamId) {
+        const {data} = await api.get('/users/me');
+        teamId = data.user.team;
+    }
+    if (!teamId) return;
     try {
-        const {data} = await api.get(`/teams/${project.team}/members`);
+        const {data} = await api.get(`/teams/${teamId}/members`);
         members = data.members;
     } catch (err) {
         console.log(getErrorMessage(err));

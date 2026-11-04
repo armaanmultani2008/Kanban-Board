@@ -1,5 +1,6 @@
 const Project = require('../models/project');
 const Task = require('../models/task');
+const User = require('../models/user');
 
 class HttpError extends Error {
     constructor(status, message) {
@@ -18,9 +19,13 @@ const scegliChiavi = (obj, keys) => {
 
 const trovaProjectAccessibile = async (projectID, user) => {
     const project = await Project.findById(projectID);
+    const ownerInTeam = project && user.team
+        ? await User.exists({_id: project.owner, team: user.team})
+        : false;
     const canAccess = project && (
         isSameId(project.owner, user._id)
         || isSameId(project.team, user.team)
+        || ownerInTeam
     );
     if (!canAccess) throw new HttpError(404, 'Project not found');
     return project;
