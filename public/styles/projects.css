@@ -1,4 +1,38 @@
-.project-link { font-weight: 600; text-decoration: none; }
-.project-link:hover { text-decoration: underline; }
-.project-actions { text-align: right; white-space: nowrap; }
-.project-actions .btn { margin-left: 8px; }
+.project-link {
+    color: var(--text);
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.project-link:hover {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.project-row .project-goal {
+    max-width: 360px;
+    color: var(--text-muted);
+}
+
+.project-actions {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.project-actions .btn + .btn {
+    margin-left: 5px;
+}
+
+#project-search {
+    max-width: 360px;
+}
+
+@media (max-width: 560px) {
+    .project-actions {
+        min-width: 170px;
+    }
+
+    .project-actions .btn {
+        padding-inline: 8px;
+    }
+}

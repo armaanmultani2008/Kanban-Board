@@ -1,51 +1,81 @@
-/* public/styles/login.css */
 .auth-page {
-    min-height: 100vh;
+    position: relative;
     display: grid;
+    min-height: 100vh;
     place-items: center;
-    padding: 16px;
+    padding: 28px 16px;
+    background:
+        radial-gradient(ellipse at 16% 18%, color-mix(in srgb, var(--primary) 12%, transparent), transparent 34%),
+        radial-gradient(ellipse at 86% 82%, rgba(181, 111, 77, 0.1), transparent 31%),
+        var(--bg);
 }
 
 .auth-card {
-    width: min(400px, 100%);
-    padding: 32px;
-    background: var(--surface);
+    width: min(430px, 100%);
+    padding: clamp(24px, 6vw, 40px);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 20px;
+    background: var(--surface);
     box-shadow: var(--shadow);
 }
 
+.auth-header {
+    padding: 4px 0 22px;
+}
+
 .auth-title {
-    margin: 0 0 24px;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: -0.045em;
     text-align: center;
-    font-size: 1.5rem;
 }
 
 .auth-tabs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
     margin-bottom: 24px;
-    border-bottom: 1px solid var(--border);
+    padding: 5px;
+    border-radius: 10px;
+    background: var(--hover);
 }
 
 .auth-tab {
-    padding: 10px;
+    min-height: 40px;
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--text-muted);
     font: inherit;
     font-weight: 600;
-    color: var(--text-muted);
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
     cursor: pointer;
+    transition: color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+}
+
+.auth-tab:hover {
+    color: var(--text);
 }
 
 .auth-tab.active {
+    background: var(--surface);
     color: var(--primary);
-    border-bottom-color: var(--primary);
+    box-shadow: 0 1px 4px rgba(49, 48, 37, 0.1);
 }
 
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 17px;
+}
+
+.auth-form .btn-primary {
+    width: 100%;
+    margin-top: 2px;
+}
+
+.auth-form .form-error {
+    margin-bottom: -8px;
 }
