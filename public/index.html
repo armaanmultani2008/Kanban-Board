@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -159,6 +159,7 @@
         <tr class="list-row">
             <td><span class="lozenge row-type"></span></td>
             <td><span class="row-summary"></span></td>
+            <td><span class="lozenge row-status"></span></td>
             <td><span class="priority row-priority"></span></td>
             <td><span class="row-assignee"></span></td>
             <td><span class="row-due"></span></td>
@@ -192,7 +193,7 @@
             <div class="dialog-body stack-form">
                 <div class="form-field">        
                     <label for="new-summary">Riepilogo</label>
-                    <input id="new-summary" type="text" maxlength="100" required>
+                    <input id="new-summary" name="summary" type="text" maxlength="100" required>
                 </div>
                 <div class="form-field">        
                     <label for="new-description">Descrizione</label>
@@ -220,7 +221,22 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="new-assignee">Assegnatario</label>
+                        <select id="new-assignee" name="assignee"></select>
+                    </div>
+                    <div class="form-field">
+                        <label for="new-due-date">Scadenza</label>
+                        <input id="new-due-date" name="due_date" type="date">
+                    </div>
+                </div>
+                <p class="form-error" role="alert"></p>
             </div>
+            <footer class="dialog-footer">
+                <button type="button" class="btn" data-close>Annulla</button>
+                <button type="submit" class="btn btn-primary">Crea task</button>
+            </footer>
         </form>
     </dialog>
 
@@ -269,6 +285,7 @@
                     <select id="task-assignee-select">
                         <option value="">Non assegnata</option>
                     </select>
+                    <button type="button" class="btn btn-sm" id="assign-to-me">Assegna a me</button>
                 </div>
                 <div class="form-field">
                     <label for="task-priority-select">Priorità</label>

@@ -143,7 +143,7 @@ async function loadProject(projectId) {
 
 async function caricaMembri(project) {
     members = [{
-        _id: currentUser._id,
+        _id: currentUser.id,
         name: currentUser.name,
         username: currentUser.username,
     }];
@@ -161,6 +161,7 @@ async function caricaTasks(projectId) {
         const {data} = await api.get(`/projects/${projectId}/tasks`);
         allTasks = data.tasks;
         console.log(`Trovate ${data.count} task`, data.tasks);
+        renderAll();
     } catch (err) {
         console.log(getErrorMessage(err));
     }
@@ -237,7 +238,7 @@ function renderList(tasks) {
         row.querySelector('.row-summary').textContent = task.summary;
 
         const status = row.querySelector('.row-status');
-        status.textContent = STATUS_LABELS[task.status];
+        status.textContent = STATUS_LABELS[task.status] || task.status;
         status.dataset.status = task.status;
 
         row.querySelector('.row-priority').dataset.priority = task.priority;

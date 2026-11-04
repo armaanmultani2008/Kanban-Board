@@ -23,7 +23,7 @@ const getProjectTasks = async(req, res) => {
     else if (typeof assignee === 'string') filter.assignee = assignee;
     if (typeof search === 'string' && search.trim()) {
         const escaped = search.trim().replace(/[.*+?{}()|[\]\\]/g, '\\$&');
-        filter.summary = {$regex: escaped, $options: i};
+        filter.summary = {$regex: escaped, $options: 'i'};
     }
     const allowedSort = ['due_date', '-due_date', 'createdAt', '-createdAt'];
     const sortBy = allowedSort.includes(sort) ? sort : '-createdAt';
@@ -56,7 +56,7 @@ const getTask = async (req, res) => {
 const updateTask = async (req, res) => {
     const {task, project} = await trovaTaskAccessibile(req.params.id, req.user);
     const updates = scegliChiavi(req.body, TASK_FIELDS);
-    if ('assignee' in updates) await assertValidAssignee(project, update.assignee);
+    if ('assignee' in updates) await assertValidAssignee(project, updates.assignee);
 
     Object.assign(task, updates);
     await task.save();

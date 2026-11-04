@@ -42,13 +42,13 @@ function renderProgetti() {
         status.dataset.status = project.status;
         row.querySelector('.project-created').textContent = new Date(project.createdAt).toLocaleDateString('it-IT');
 
-        const isOwner = project.owner === currentUser.id;
+        const isOwner = String(project.owner) === String(currentUser.id);
         const editButton = row.querySelector('.project-edit');
         const deleteButton = row.querySelector('.project-delete');
         editButton.hidden = !isOwner;
         deleteButton.hidden = !isOwner;
-        editButton.addEventListener('click', () => openProjectDialog(project));
-        deleteButton.addEventListener('click', () => deleteProject(project));
+        editButton.addEventListener('click', () => apriProjectDialog(project));
+        deleteButton.addEventListener('click', () => eliminaProgetto(project));
 
         projectsBody.appendChild(row);
     });
@@ -102,8 +102,8 @@ projectForm.addEventListener('submit', async (event) => {
 });
 
 document.getElementById('open-project-dialog').addEventListener('click', () => apriProjectDialog(null));
-projectSearch.addEventListener('input', renderProjects);
-statusFilter.addEventListener('change', loadProjects);
+projectSearch.addEventListener('input', renderProgetti);
+statusFilter.addEventListener('change', caricaProgetti);
 
 document.addEventListener('click', (event) => {
     const closer = event.target.closest('[data-close]');
