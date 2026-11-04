@@ -1,0 +1,28 @@
+.page-narrow > .page-header {
+    margin-bottom: 20px;
+    padding-bottom: 19px;
+    border-bottom: 1px solid var(--border);
+}
+
+#profile-form {
+    gap: 18px;
+}
+
+#profile-form h2,
+.page-narrow > .card h2 {
+    margin-bottom: 2px;
+}
+
+.page-narrow > .card:not(#profile-form) {
+    padding-block: 18px;
+}
+
+.page-narrow > .card:not(#profile-form) h2 {
+    margin-bottom: 12px;
+    font-size: 1.28rem;
+}
+
+#dark-mode-toggle {
+    width: 17px;
+    height: 17px;
+}
