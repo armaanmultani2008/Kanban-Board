@@ -50,7 +50,7 @@ function renderTeam() {
 
     document.getElementById('edit-team-btn').hidden = !isAdmin;
     document.getElementById('delete-team-btn').hidden = !isAdmin;
-    document.getElementById('leave-team-btn').hidden = isAdmin; // l'admin non può abbandonare: elimina il team
+    document.getElementById('leave-team-btn').hidden = isAdmin;
 
     renderMembers();
 }
